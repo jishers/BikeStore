@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKE sSTORE</title>
+    <!-- Enlaces a recursos externos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <!-- Contenedor principal de la página -->
+    <div class="wrapper">
+        <!-- Encabezado para dispositivos móviles -->
+        <header class="header-mobile">
+            <h1 class="logo">BIKE-STORE ONLINE</h1>
+            <button class="open-menu" id="open-menu">
+                <i class="bi bi-list"></i>
+            </button>
+        </header>
+        <!-- Barra lateral de navegación -->
+        <aside class="nav-top">
+            <button class="close-menu" id="close-menu">
+                <i class="bi bi-x"></i>
+            </button>
+            <header>
+                <h1 class="logo">BIKE-STORE ONLINE</h1>
+            </header>
+            <nav>
+                <ul class="menu">
+                    <!-- Botón para volver a la página principal -->
+                    <li>
+                        <a class="boton-menu boton-volver" href="index.html">
+                            <i class="bi bi-arrow-return-left"></i> Volver
+                        </a>
+                    </li>
+                    <!-- Botón activo de la página actual -->
+                    <li>
+                        <button id="todos" class="boton-menu active"><i class="bi bi-hand-index-thumb-fill"></i>
+                            Descripción</button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Contenido principal -->
+        <main>
+            <!-- Modal para mostrar la descripción del producto -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <h2 class="titulo-principal" id="titulo-principal">Descripción del Producto</h2>
+                    <button class="close-modal" id="closeModalBtn">×</button>
+                </div>
+                <!-- El contenido de la descripción se cargará dinámicamente con JavaScript -->
+            </div>
+        </main>
+        <!-- Pie de página -->
+        <footer>
+            <p class="texto-footer">© 2025 BIKE-STORE ONLINE</p>
+            <a class="boton-menu boton-carrito" href="./contactos.html">
+                <button class="boton-menu-contacto boton-carrito">Contáctanos</button>
+            </a>
+        </footer>
+    </div>
+    <!-- Scripts de JavaScript -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./js/descripcion.js"></script>
+    <script src="./js/menu.js"></script>
+</body>
+
+</html>

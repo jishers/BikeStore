@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Factura - BIKE STORE</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #8B0000;
+            text-align: center;
+        }
+
+        .info {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #8B0000;
+        }
+
+        .producto {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .total {
+            background: #8B0000;
+            color: white;
+            padding: 15px;
+            text-align: right;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #8B0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #660000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Confirmar Datos</h1>
+
+        <div class="info">
+            <h3>📅 Fecha:</h3>
+            <p id="fecha">Cargando...</p>
+        </div>
+
+        <div class="info">
+            <h3>👤 Datos del Cliente:</h3>
+            <p><strong>Nombre:</strong> <span id="nombre">Cargando...</span></p>
+            <p><strong>Email:</strong> <span id="email">Cargando...</span></p>
+        </div>
+
+        <div class="info">
+            <h3>🛒 Productos en el Carrito:</h3>
+            <div id="productos">Cargando productos...</div>
+        </div>
+
+        <div class="total">
+            <h3>💰 Total: <span id="total">$0</span></h3>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="confirmarCompra()"
+                style="background: #28a745; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; margin: 5px;">✅
+                Confirmar Compra</button>
+            <!--<button onclick="probarServidor()"
+                style="background: #007bff; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; margin: 5px;">🔧
+                Probar Servidor</button>-->
+            <a href="./carrito.html" class="btn-volver-carrito"
+                style="background: #8B0000; color: white; padding: 12px 24px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; margin: 5px; text-decoration: none; display: inline-block;">⬅️
+                Volver al Carrito</a>
+        </div>
+    </div>
+
+    <!-- Modal de Éxito -->
+    <div id="exito-modal" class="modal-exito"
+        style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+        <div class="modal-content-exito"
+            style="background-color: white; margin: auto; padding: 40px; border-radius: 15px; text-align: center; max-width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="font-size: 80px; margin-bottom: 20px;">👍</div>
+            <h2 style="color: #28a745; margin-bottom: 20px;">¡Compra Exitosa!</h2>
+            <p style="color: #666; margin-bottom: 30px; font-size: 16px;">Tu compra ha sido procesada correctamente.
+                ¡Gracias por tu compra!</p>
+            <button onclick="volverAlInicio()"
+                style="background: #8B0000; color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">🏠
+                Volver al Inicio</button>
+        </div>
+    </div>
+
+    <script>
+        console.log('=== INICIO TEST FACTURA ===');
+
+        // Función para obtener la URL base del servidor
+        function getServerUrl() {
+            // Si estamos en el puerto 3001, usar rutas relativas
+            if (window.location.port === '3001') {
+                console.log('Usando rutas relativas (puerto 3001)');
+                return '';
+            }
+            // Si no, usar la URL completa del servidor
+            console.log('Usando URL completa del servidor (puerto:', window.location.port, ')');
+            return 'http://localhost:3001';
+        }
+
+        // Función para probar datos
+        function probarDatos() {
+            console.log('Probando datos...');
+
+            // Obtener productos del carrito
+            const productos = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
+            console.log('Productos en carrito:', productos);
+
+            // Obtener usuario logueado
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
+            console.log('Usuario logueado:', usuario);
+
+            // Mostrar datos en la página
+            document.getElementById('fecha').textContent = new Date().toLocaleString('es-ES');
+
+            if (usuario) {
+                document.getElementById('nombre').textContent = usuario.nombre || 'No disponible';
+                document.getElementById('email').textContent = usuario.email || 'No disponible';
+            } else {
+                document.getElementById('nombre').textContent = 'No logueado';
+                document.getElementById('email').textContent = 'No logueado';
+            }
+
+            // Mostrar productos
+            const productosDiv = document.getElementById('productos');
+            if (productos.length > 0) {
+                productosDiv.innerHTML = productos.map(p => `
+                    <div class="producto">
+                        <strong>${p.nombre}</strong> - Cantidad: ${p.cantidad} - Precio: $${p.precio}
+                    </div>
+                `).join('');
+            } else {
+                productosDiv.innerHTML = '<p>No hay productos en el carrito</p>';
+            }
+
+            // Calcular total
+            const total = productos.reduce((acc, p) => acc + (parseFloat(p.precio) * p.cantidad), 0);
+            document.getElementById('total').textContent = `$${total.toLocaleString()}`;
+        }
+
+        // Función para confirmar compra
+        function confirmarCompra() {
+            console.log('=== FUNCIÓN CONFIRMAR COMPRA EJECUTADA ===');
+            // Obtener productos del carrito
+            const productos = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+            if (!productos || productos.length === 0) {
+                Swal.fire({
+                    title: 'Carrito Vacío',
+                    text: 'No hay productos en el carrito para procesar',
+                    icon: 'warning',
+                    confirmButtonText: 'Entendido',
+                    confirmButtonColor: '#8B0000'
+                });
+                return;
+            }
+
+            if (!usuario) {
+                Swal.fire({
+                    title: 'No Autenticado',
+                    text: 'Debes iniciar sesión para realizar una compra',
+                    icon: 'error',
+                    confirmButtonText: 'Entendido',
+                    confirmButtonColor: '#8B0000'
+                });
+                return;
+            }
+
+            // Calcular totales
+            const cantidadTotal = productos.reduce((acc, p) => acc + p.cantidad, 0);
+            const precioTotal = productos.reduce((acc, p) => acc + (parseFloat(p.precio) * p.cantidad), 0);
+
+            // Preparar detalles de la venta
+            const detalles = productos.map(p => ({
+                id_producto: p.id_producto,
+                cantidad_producto: p.cantidad,
+                precio_unitario: parseFloat(p.precio)
+            }));
+
+            // Datos de la venta
+            const ventaData = {
+                id_usuario: usuario.id_usuario,
+                cantidad_productos: cantidadTotal,
+                precio_productos: precioTotal,
+                metodo_pago: 'contra_entrega',
+                detalles: detalles
+            };
+
+            console.log('Enviando venta al servidor:', ventaData);
+
+            // Mostrar confirmación antes de procesar
+            Swal.fire({
+                title: '¿Confirmar Compra?',
+                html: `¿Estás seguro de que quieres proceder con la compra por <strong>$${precioTotal.toLocaleString()}</strong>?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, Confirmar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#6c757d'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Primero verificar stock
+                    verificarStockAntesDeVenta(detalles, ventaData);
+                }
+            });
+        }
+
+        // Función para verificar stock antes de la venta
+        function verificarStockAntesDeVenta(detalles, ventaData) {
+            // Primero probar que el servidor esté funcionando
+            const testUrl = getServerUrl() + '/api/test';
+            console.log('Probando servidor en:', testUrl);
+
+            fetch(testUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Servidor funcionando:', data);
+                    // Si el servidor funciona, proceder con la verificación de stock
+                    procederConVerificacionStock(detalles, ventaData);
+                })
+                .catch(error => {
+                    console.error('Error al conectar con el servidor:', error);
+                    Swal.fire({
+                        title: 'Error de Conexión',
+                        text: 'No se pudo conectar con el servidor. Asegúrate de que esté corriendo en el puerto 3001.',
+                        icon: 'error',
+                        confirmButtonText: 'Entendido',
+                        confirmButtonColor: '#8B0000'
+                    });
+                });
+        }
+
+        // Función para proceder con la verificación de stock
+        function procederConVerificacionStock(detalles, ventaData) {
+            const url = getServerUrl() + '/api/verificar-stock';
+            console.log('Verificando stock en:', url);
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ detalles: detalles })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        // Hay problemas de stock
+                        let mensaje = '<strong>Stock Insuficiente:</strong><br><br>';
+                        data.verificaciones.forEach(v => {
+                            if (v.error) {
+                                mensaje += `• <strong>${v.nombre || 'Producto'}</strong>: ${v.error}<br>`;
+                                if (v.stock_disponible !== undefined) {
+                                    mensaje += `  Stock disponible: ${v.stock_disponible}<br>`;
+                                }
+                                mensaje += '<br>';
+                            }
+                        });
+
+                        Swal.fire({
+                            title: 'Stock Insuficiente',
+                            html: mensaje,
+                            icon: 'error',
+                            confirmButtonText: 'Entendido',
+                            confirmButtonColor: '#8B0000'
+                        });
+                    } else {
+                        // Stock disponible, proceder con la venta
+                        procesarVenta(ventaData);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al verificar stock:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al verificar disponibilidad de productos',
+                        icon: 'error',
+                        confirmButtonText: 'Entendido',
+                        confirmButtonColor: '#8B0000'
+                    });
+                });
+        }
+
+        // Función para procesar la venta
+        function procesarVenta(ventaData) {
+            // Enviar venta al servidor
+            const url = getServerUrl() + '/api/ventas';
+            console.log('=== PROCESANDO VENTA ===');
+            console.log('URL del servidor:', url);
+            console.log('Datos a enviar:', ventaData);
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(ventaData)
+            })
+                .then(response => {
+                    console.log('Respuesta del servidor recibida:', response);
+                    console.log('Status:', response.status);
+                    console.log('Status Text:', response.statusText);
+
+                    if (!response.ok) {
+                        console.error('Error en la respuesta del servidor:', response.status, response.statusText);
+                        throw new Error(`Error al procesar la venta: ${response.status} ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('=== VENTA PROCESADA EXITOSAMENTE ===');
+                    console.log('Datos de respuesta:', data);
+
+                    // Vaciar carrito
+                    localStorage.removeItem('productos-en-carrito');
+                    console.log('Carrito vaciado');
+
+                    // Obtener datos del usuario
+                    const usuario = JSON.parse(localStorage.getItem('usuario'));
+                    const direccion = usuario && usuario.direccion ? usuario.direccion : 'No disponible';
+                    console.log('Datos del usuario:', usuario);
+                    console.log('Dirección de entrega:', direccion);
+
+                    // Mostrar mensaje de éxito con SweetAlert2
+                    console.log('Mostrando modal de éxito...');
+                    Swal.fire({
+                        title: '¡Compra exitosa!',
+                        html: `<p>Pago contraentrega.</p>
+                               <p><strong>Dirección de entrega:</strong> ${direccion}</p>
+                               <p>Recibirás un email de confirmación.</p>`,
+                        icon: 'success',
+                        confirmButtonText: 'Volver al inicio',
+                        confirmButtonColor: '#8B0000',
+                        allowOutsideClick: false
+                    }).then(() => {
+                        console.log('Usuario confirmó modal, redirigiendo al inicio...');
+                        // Redirigir al inicio
+                        window.location.href = 'index.html';
+                    });
+                })
+                .catch(error => {
+                    console.error('=== ERROR AL PROCESAR LA VENTA ===');
+                    console.error('Error completo:', error);
+                    console.error('Mensaje de error:', error.message);
+
+                    Swal.fire({
+                        title: 'Error en la Compra',
+                        text: `Hubo un problema al procesar tu compra: ${error.message}`,
+                        icon: 'error',
+                        confirmButtonText: 'Entendido',
+                        confirmButtonColor: '#8B0000'
+                    });
+                });
+        }
+
+        // Función para verificar stocks bajos
+        function verificarStocksBajos(productos) {
+            console.log('=== VERIFICANDO STOCKS BAJOS ===');
+            // Obtener información actualizada de stocks
+            const url = getServerUrl() + '/api/stocks';
+            console.log('Verificando stocks bajos en:', url);
+            fetch(url)
+                .then(response => response.json())
+                .then(stocks => {
+                    const alertasBajas = [];
+                    const alertasAgotadas = [];
+
+                    productos.forEach(producto => {
+                        const stockInfo = stocks.find(s => s.id_producto == producto.id_producto);
+                        if (stockInfo) {
+                            if (stockInfo.stock <= stockInfo.stock_minimo && stockInfo.stock > 0) {
+                                alertasBajas.push(`• ${producto.nombre}: ${stockInfo.stock} unidades restantes (mínimo: ${stockInfo.stock_minimo})`);
+                            }
+                            if (stockInfo.stock === 0) {
+                                alertasAgotadas.push(`• ${producto.nombre}: Agotado`);
+                            }
+                        }
+                    });
+
+                    // Mostrar alertas si hay stocks bajos o agotados
+                    if (alertasBajas.length > 0 || alertasAgotadas.length > 0) {
+                        console.log('Mostrando alertas de stock bajo/agotado');
+                        setTimeout(() => {
+                            let mensaje = '';
+                            let icono = 'warning';
+                            let titulo = 'Alertas de Stock';
+
+                            if (alertasAgotadas.length > 0) {
+                                mensaje += '<strong>🚫 Productos Agotados:</strong><br>' + alertasAgotadas.join('<br>') + '<br><br>';
+                                icono = 'error';
+                                titulo = '¡Productos Agotados!';
+                            }
+
+                            if (alertasBajas.length > 0) {
+                                mensaje += '<strong>⚠️ Stock Bajo:</strong><br>' + alertasBajas.join('<br>');
+                            }
+
+                            Swal.fire({
+                                title: titulo,
+                                html: mensaje,
+                                icon: icono,
+                                confirmButtonText: 'Entendido',
+                                confirmButtonColor: '#8B0000'
+                            });
+                        }, 1500);
+                    } else {
+                        console.log('No hay alertas de stock - todos los productos tienen stock suficiente');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al verificar stocks:', error);
+                });
+        }
+
+        // Función para probar el servidor
+        // function probarServidor() {
+        //     const testUrl = getServerUrl() + '/api/test';
+        //     console.log('Probando servidor en:', testUrl);
+
+        //     fetch(testUrl)
+        //         .then(response => {
+        //             console.log('Respuesta del servidor:', response);
+        //             if (!response.ok) {
+        //                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        //             }
+        //             return response.json();
+        //         })
+        //         .then(data => {
+        //             console.log('Servidor funcionando:', data);
+        //             Swal.fire({
+        //                 title: '✅ Servidor Funcionando',
+        //                 text: `Servidor conectado correctamente. Timestamp: ${data.timestamp}`,
+        //                 icon: 'success',
+        //                 confirmButtonText: 'Entendido',
+        //                 confirmButtonColor: '#28a745'
+        //             });
+        //         })
+        //         .catch(error => {
+        //             console.error('Error al conectar con el servidor:', error);
+        //             Swal.fire({
+        //                 title: '❌ Error de Conexión',
+        //                 html: `No se pudo conectar con el servidor.<br><br><strong>Error:</strong> ${error.message}<br><strong>URL:</strong> ${testUrl}<br><br>Asegúrate de que el servidor esté corriendo en el puerto 3000.`,
+        //                 icon: 'error',
+        //                 confirmButtonText: 'Entendido',
+        //                 confirmButtonColor: '#8B0000'
+        //             });
+        //         });
+        // }
+
+        // Función para volver al inicio
+        function volverAlInicio() {
+            // Vaciar el carrito
+            localStorage.removeItem("productos-en-carrito");
+
+            // Redirigir al inicio
+            window.location.href = 'index.html';
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('exito-modal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Ejecutar al cargar la página
+        window.addEventListener('load', () => {
+            console.log('Página cargada, ejecutando prueba automática...');
+            probarDatos();
+        });
+
+        console.log('=== FIN TEST FACTURA ===');
+    </script>
+</body>
+
+</html>

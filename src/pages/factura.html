@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura - BIKE STORE</title>
+    <!-- Enlaces a recursos externos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .factura-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
+        }
+
+        .factura-header {
+            text-align: center;
+            border-bottom: 3px solid #8B0000;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .factura-header h1 {
+            color: #8B0000;
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .factura-fecha {
+            color: #666;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .factura-cliente {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #8B0000;
+        }
+
+        .factura-cliente h2 {
+            color: #8B0000;
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .cliente-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .cliente-info p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .cliente-info strong {
+            color: #333;
+        }
+
+        .factura-productos {
+            margin-bottom: 2rem;
+        }
+
+        .factura-productos h2 {
+            color: #8B0000;
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .productos-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .productos-tabla th {
+            background: #8B0000;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .productos-tabla td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .productos-tabla tr:hover {
+            background: #f8f9fa;
+        }
+
+        .factura-total {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: right;
+            border-left: 4px solid #8B0000;
+        }
+
+        .factura-total h2 {
+            color: #8B0000;
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .total-info {
+            font-size: 1.2rem;
+        }
+
+        .total-info p {
+            margin: 0.5rem 0;
+        }
+
+        .total-final {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #8B0000;
+            border-top: 2px solid #8B0000;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .factura-acciones {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #8B0000;
+        }
+
+        .btn-confirmar,
+        .btn-cancelar {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-confirmar {
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            color: white;
+        }
+
+        .btn-confirmar:hover {
+            background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn-cancelar {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-cancelar:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        .volver-carrito {
+            background: #28a745;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .volver-carrito:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .factura-page {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .factura-header h1 {
+                font-size: 2rem;
+            }
+
+            .cliente-info {
+                grid-template-columns: 1fr;
+            }
+
+            .productos-tabla {
+                font-size: 0.9rem;
+            }
+
+            .productos-tabla th,
+            .productos-tabla td {
+                padding: 0.5rem;
+            }
+
+            .factura-acciones {
+                flex-direction: column;
+            }
+
+            .btn-confirmar,
+            .btn-cancelar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="factura-page">
+        <!-- Botón para volver al carrito -->
+        <a href="carrito.html" class="volver-carrito">
+            <i class="bi bi-arrow-left"></i> Volver al Carrito
+        </a>
+
+        <!-- Encabezado de la factura -->
+        <div class="factura-header">
+            <h1><i class="bi bi-receipt"></i> FACTURA DE COMPRA</h1>
+            <p class="factura-fecha" id="factura-fecha"></p>
+        </div>
+
+        <!-- Datos del cliente -->
+        <div class="factura-cliente">
+            <h2><i class="bi bi-person"></i> DATOS DEL CLIENTE</h2>
+            <div class="cliente-info">
+                <p><strong>Nombre:</strong> <span id="cliente-nombre"></span></p>
+                <p><strong>Dirección:</strong> <span id="cliente-direccion"></span></p>
+                <p><strong>Teléfono:</strong> <span id="cliente-telefono"></span></p>
+                <p><strong>Email:</strong> <span id="cliente-email"></span></p>
+            </div>
+        </div>
+
+        <!-- Productos -->
+        <div class="factura-productos">
+            <h2><i class="bi bi-cart"></i> PRODUCTOS</h2>
+            <table class="productos-tabla">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="productos-tabla-body">
+                    <!-- Los productos se cargarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Total -->
+        <div class="factura-total">
+            <h2><i class="bi bi-calculator"></i> TOTAL</h2>
+            <div class="total-info">
+                <p><strong>Subtotal:</strong> <span id="factura-subtotal"></span></p>
+                <p class="total-final"><strong>Total:</strong> <span id="factura-total"></span></p>
+            </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="factura-acciones">
+            <button id="confirmar-compra" class="btn-confirmar">
+                <i class="bi bi-check-circle"></i> Confirmar Compra
+            </button>
+            <a href="carrito.html" class="btn-cancelar">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts de JavaScript -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/factura.js"></script>
+</body>
+
+</html>

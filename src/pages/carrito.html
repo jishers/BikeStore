@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKE STORE</title>
+    <!-- Enlaces a recursos externos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <!-- Contenedor principal de la página -->
+    <div class="wrapper">
+        <!-- Encabezado para dispositivos móviles -->
+        <header class="header-mobile">
+            <h1 class="logo">BIKE-STORE ONLINE</h1>
+            <button class="open-menu" id="open-menu">
+                <i class="bi bi-list"></i>
+            </button>
+        </header>
+        <!-- Barra lateral de navegación -->
+        <aside class="nav-top">
+            <button class="close-menu" id="close-menu">
+                <i class="bi bi-x"></i>
+            </button>
+            <header>
+                <h1 class="logo">BIKE-STORE ONLINE</h1>
+            </header>
+            <nav>
+                <ul class="menu">
+                    <!-- Menú lateral simplificado sin botones de navegación -->
+                </ul>
+            </nav>
+        </aside>
+        <!-- Contenido principal -->
+        <main>
+            <!-- Botones de navegación dashboard -->
+            <div class="main-navigation"
+                style="display: flex; justify-content: center; align-items: center; margin-bottom: 2rem; padding: 0 1rem;">
+                <a class="boton-menu boton-volver" href="index.html"
+                    style="background: #fff; color: rgb(111, 109, 109); border: 2px solid rgb(111, 109, 109); border-radius: 8px; font-size: 1rem; font-weight: 600; padding: 0.7rem 1.5rem; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(139, 0, 0, 0.08); margin-bottom: 0; width: auto; display: flex; align-items: center; gap: 0.5rem; justify-content: center; text-decoration: none;"
+                    onmouseover="this.style.background='linear-gradient(135deg, #8B0000 0%, #DC143C 100%)'; this.style.color='#fff'; this.style.borderColor='#8B0000'; this.style.boxShadow='0 4px 15px rgba(139, 0, 0, 0.15)'"
+                    onmouseout="this.style.background='#fff'; this.style.color='rgb(111, 109, 109)'; this.style.borderColor='rgb(111, 109, 109)'; this.style.boxShadow='0 2px 8px rgba(139, 0, 0, 0.08)'">
+                    <i class="bi bi-arrow-return-left"></i> Seguir comprando
+                </a>
+            </div>
+            <h2 class="titulo-principal">Carrito</h2>
+            <!-- Contenedor del carrito -->
+            <div class="contenedor-carrito">
+                <!-- Mensaje cuando el carrito está vacío -->
+                <p id="carrito-vacio" class="carrito-vacio">Tu carrito está vacío. <i class="bi bi-emoji-frown"></i></p>
+                <!-- Lista de productos en el carrito -->
+                <div id="carrito-productos" class="carrito-productos disabled">
+                    <!-- Los productos se cargarán dinámicamente con JavaScript -->
+                </div>
+                <!-- Acciones del carrito -->
+                <div id="carrito-acciones" class="carrito-acciones disabled">
+                    <!-- Botón para vaciar el carrito -->
+                    <div class="carrito-acciones-izquierda">
+                        <button id="carrito-acciones-vaciar" class="carrito-acciones-vaciar">Vaciar carrito</button>
+                    </div>
+                    <!-- Total y botón de compra -->
+                    <div class="carrito-acciones-derecha">
+                        <div class="carrito-acciones-total">
+                            <p>Total:</p>
+                            <p id="total">$3000</p>
+                        </div>
+                        <button id="carrito-acciones-comprar" class="carrito-acciones-comprar"
+                            onclick="probarRedireccion()">Comprar ahora</button>
+
+                    </div>
+                </div>
+                <!-- Mensaje de compra exitosa -->
+                <p id="carrito-comprado" class="carrito-comprado disabled">Muchas gracias por tu compra. <i
+                        class="bi bi-emoji-laughing"></i></p>
+            </div>
+
+            <!-- Modal de Factura -->
+            <div id="factura-modal" class="modal">
+                <div class="modal-content factura-modal-content">
+                    <button class="close-modal" id="close-factura-modal">×</button>
+                    <div class="factura-container">
+                        <div class="factura-header">
+                            <h2><i class="bi bi-receipt"></i> FACTURA DE COMPRA</h2>
+                            <p class="factura-fecha" id="factura-fecha"></p>
+                        </div>
+
+                        <div class="factura-cliente">
+                            <h3><i class="bi bi-person"></i> DATOS DEL CLIENTE</h3>
+                            <div class="cliente-info">
+                                <p><strong>Nombre:</strong> <span id="cliente-nombre"></span></p>
+                                <p><strong>Dirección:</strong> <span id="cliente-direccion"></span></p>
+                                <p><strong>Teléfono:</strong> <span id="cliente-telefono"></span></p>
+                                <p><strong>Email:</strong> <span id="cliente-email"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="factura-productos">
+                            <h3><i class="bi bi-cart"></i> PRODUCTOS</h3>
+                            <div class="productos-lista" id="factura-productos-lista">
+                                <!-- Los productos se cargarán dinámicamente -->
+                            </div>
+                        </div>
+
+                        <div class="factura-total">
+                            <h3><i class="bi bi-calculator"></i> TOTAL</h3>
+                            <div class="total-info">
+                                <p><strong>Subtotal:</strong> <span id="factura-subtotal"></span></p>
+                                <p><strong>Total:</strong> <span id="factura-total"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="factura-acciones">
+                            <button id="confirmar-compra" class="btn-confirmar">Confirmar Compra</button>
+                            <button id="cancelar-compra" class="btn-cancelar">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Pie de página -->
+        <footer>
+            <p class="texto-footer">© 2025 BIKE-STORE ONLINE</p>
+            <a class="boton-menu boton-carrito" href="contactos.html">
+                <button class="boton-menu-contacto boton-carrito">Contáctanos</button>
+            </a>
+        </footer>
+    </div>
+    <!-- Scripts de JavaScript -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/login-registro.js"></script>
+</body>
+
+</html>

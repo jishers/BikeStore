@@ -1,0 +1,2730 @@
+/* Estilos base del documento */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.logo{
+    height: 5rem;
+    cursor: pointer;
+}
+
+/* Reset de márgenes y padding para elementos de texto */
+h1, h2, h3, h4, h5, h6, p, a, input, textarea, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para listas sin viñetas */
+ul {
+    list-style-type: none;
+}
+
+/* Estilo para enlaces sin subrayado */
+a {
+    text-decoration: none;
+}
+
+/* Contenedor principal de la página con diseño flexible */
+.wrapper {
+    min-height: 100vh;
+    background-color: rgb(111, 109, 109);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Barra de navegación superior ahora como header */
+.nav-top {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: rgb(111, 109, 109);
+    padding: 2rem;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Menú de navegación con distribución flexible */
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Estilos para botones del menú con diseño moderno y efectos hover */
+.boton-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: white;
+    color: rgb(111, 109, 109);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.boton-menu:hover {
+    background-color: rgb(243, 49, 49);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para el botón del carrito con margen izquierdo */
+.boton-carrito {
+    display: inline-block;
+    margin-left: 1rem;
+}
+
+/* Estilo para el contador del carrito */
+.numerito {
+    background-color: white;
+    color: rgb(111, 109, 109);
+    padding: .15rem .25rem;
+    border-radius: .25rem;
+}
+
+/* Estilo para el contador del carrito cuando está activo */
+.boton-carrito.active .numerito {
+    background-color: rgb(111, 109, 109);
+    color: white;
+}
+
+/* Contenido principal de la página con fondo blanco y bordes redondeados */
+main {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 3rem 6rem;
+    flex: 1;
+    background: white;
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+/* Estilo para títulos principales con color principal */
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 0 auto 2rem auto;
+    background: linear-gradient(90deg, #6f6d6d 0%, #f33131 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 24px rgba(243,49,49,0.15), 0 2px 8px rgba(0,0,0,0.08);
+    transition: font-size 0.3s, text-shadow 0.3s;
+    border-radius: 1rem;
+    padding: 0.5rem 2rem;
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+        padding: 0.3rem 1rem;
+    }
+}
+
+/* Grid para mostrar los productos en 4 columnas */
+.contenedor-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+/* Estilo para cada producto individual */
+.producto {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.producto img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0;
+    transition: transform 0.3s ease;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.producto:hover img {
+    transform: scale(1.05);
+}
+
+.producto h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0.8rem 0.8rem 0.3rem 0.8rem;
+    line-height: 1.3;
+    height: 2.4rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.producto .precio {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #8B0000;
+    margin: 0 0.8rem 0.3rem 0.8rem;
+    text-shadow: 0 1px 2px rgba(139, 0, 0, 0.3);
+}
+
+.producto .stock {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0 0.8rem 0.8rem 0.8rem;
+    font-weight: 500;
+}
+
+/* Contenedor para los botones de acción */
+.producto-acciones {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 0.8rem 0.8rem 0.8rem;
+}
+
+/* Estilo para las imágenes de productos con efectos visuales */
+.producto-imagen {
+    max-width: 100%;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    filter: brightness(1);
+    transform: scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Efecto hover para imágenes de productos con escala y brillo */
+.producto-imagen:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para el contenedor de la imagen del producto */
+.producto-contenedor-imagen {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: white;
+    padding: 0.5rem;
+}
+
+/* Estilo para la imagen en hover */
+.hover-imagen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 1rem;
+}
+
+/* Efecto hover para la imagen secundaria */
+.producto-contenedor-imagen:hover .hover-imagen {
+    opacity: 1;
+}
+
+/* Estilo para la descripción en hover */
+.hover-descripcion {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 1rem;
+    margin: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    border-radius: 0 0 1rem 1rem;
+}
+
+/* Efecto hover para la descripción */
+.producto-contenedor-imagen:hover .hover-descripcion {
+    transform: translateY(0);
+}
+
+/* Contenedor de detalles del producto con fondo oscuro */
+.producto-detalles {
+    background: rgb(243, 49, 49);
+    color: white;
+    padding: .5rem;
+    border-radius: 1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+/* Estilo para títulos de productos */
+.producto-titulo {
+    font-size: 1rem;
+}
+
+/* Estilo para botón de agregar al carrito con efectos de transición */
+.producto-agregar {
+    border: none;
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    text-transform: uppercase;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    min-width: 120px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.producto-agregar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.producto-agregar:hover::before {
+    left: 100%;
+}
+
+.producto-agregar:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
+}
+
+.producto-agregar:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(139, 0, 0, 0.4);
+}
+
+.producto-agregar:disabled {
+    background: linear-gradient(135deg, #ccc 0%, #999 100%);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los iconos en los botones */
+.producto-agregar i,
+.producto-descripcion i {
+    font-size: 1rem;
+    margin-right: 0.3rem;
+    transition: transform 0.3s ease;
+}
+
+.producto-agregar:hover i {
+    transform: scale(1.1);
+}
+
+.producto-descripcion:hover i {
+    transform: scale(1.1);
+}
+
+/* Animación de pulso para botones */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.producto-agregar:active,
+.producto-descripcion:active {
+    animation: pulse 0.3s ease;
+}
+
+/* Estilo para botón de descripción con efectos visuales */
+.producto-descripcion {
+    border: 2px solid #8B0000;
+    background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    text-transform: uppercase;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    min-width: 120px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-left: 0;
+}
+
+.producto-descripcion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.producto-descripcion:hover::before {
+    left: 100%;
+}
+
+.producto-descripcion:hover {
+    background: linear-gradient(135deg, #660000 0%, #8B0000 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
+    border-color: #660000;
+}
+
+.producto-descripcion:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(139, 0, 0, 0.4);
+}
+
+/* Contenedor del carrito con distribución en columna */
+.contenedor-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Estilo para mensajes del carrito (vacío y comprado) */
+.carrito-vacio,
+.carrito-comprado {
+    color: rgb(111, 109, 109);
+}
+
+/* Lista de productos en el carrito con distribución en columna */
+.carrito-productos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/* Estilo para cada producto en el carrito con distribución horizontal */
+.carrito-producto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e2e2e2;
+    color: rgb(111, 109, 109);
+    padding: 1rem;
+    border-radius: 1rem;
+    min-width: 200px;
+    max-width: 250px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.carrito-producto:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para imágenes en el carrito con tamaño fijo */
+.carrito-producto-imagen {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilo para texto pequeño en el carrito */
+.carrito-producto small {
+    font-size: .75rem;
+}
+
+/* Estilos para mejorar la presentación del contenido del producto */
+.carrito-producto h3 {
+    margin: 0.5rem 0;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.carrito-producto .precio {
+    font-weight: bold;
+    color: #8B0000;
+    margin: 0.5rem 0;
+}
+
+.carrito-producto .cantidad-control {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.carrito-producto .carrito-producto-subtotal {
+    font-weight: bold;
+    color: #8B0000;
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+/* Estilos para el modal de factura */
+#factura-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.factura-modal-content {
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.factura-container {
+    background: white;
+    border-radius: 1rem;
+    padding: 0;
+}
+
+.factura-header {
+    text-align: center;
+    border-bottom: 2px solid #8B0000;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.factura-header h2 {
+    color: #8B0000;
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.factura-fecha {
+    color: #666;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+}
+
+.factura-cliente,
+.factura-productos,
+.factura-total {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    background: #f9f9f9;
+}
+
+.factura-cliente h3,
+.factura-productos h3,
+.factura-total h3 {
+    color: #8B0000;
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.cliente-info p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.productos-lista {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.producto-factura {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    background: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e0e0e0;
+}
+
+.producto-factura-info {
+    flex: 1;
+}
+
+.producto-factura-nombre {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.3rem;
+}
+
+.producto-factura-detalles {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.producto-factura-subtotal {
+    font-weight: bold;
+    color: #8B0000;
+    font-size: 1.1rem;
+}
+
+.total-info {
+    text-align: right;
+}
+
+.total-info p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.total-info p:last-child {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #8B0000;
+}
+
+.factura-acciones {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 2px solid #8B0000;
+}
+
+.btn-confirmar,
+.btn-cancelar {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+.btn-confirmar {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+}
+
+.btn-confirmar:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+}
+
+.btn-cancelar {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-cancelar:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+}
+
+@media (max-width: 768px) {
+    .factura-modal-content {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    .producto-factura {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .factura-acciones {
+        flex-direction: column;
+    }
+    
+    .btn-confirmar,
+    .btn-cancelar {
+        width: 100%;
+    }
+}
+
+/* Estilo para botón de eliminar del carrito */
+.carrito-producto-eliminar {
+    border: 0;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+}
+
+/* Contenedor de acciones del carrito */
+.carrito-acciones {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Estilo para botón de vaciar carrito */
+.carrito-acciones-vaciar {
+    border: 0;
+    background-color: #e2e2e2;
+    padding: 1rem;
+    border-radius: 1rem;
+    color: rgb(111, 109, 109);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+/* Contenedor de acciones derechas del carrito */
+.carrito-acciones-derecha {
+    display: flex;
+}
+
+/* Contenedor del total del carrito */
+.carrito-acciones-total {
+    display: flex;
+    background-color: #e2e2e2;
+    padding: 1rem;
+    color: rgb(111, 109, 109);
+    text-transform: uppercase;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    gap: 1rem;
+}
+
+/* Estilo para botón de comprar */
+.carrito-acciones-comprar {
+    border: 0;
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    padding: 1rem;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    transition: all 0.3s ease;
+}
+
+.carrito-acciones-comprar:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4);
+}
+
+/* Estilo para el pie de página */
+footer {
+    background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 -4px 12px rgba(139, 0, 0, 0.3);
+}
+
+/* Estilo para el texto del pie de página */
+.texto-footer {
+    margin-bottom: 1rem;
+}
+
+/* Estilo para el botón de contacto en el menú */
+.boton-menu-contacto {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3);
+}
+
+.boton-menu-contacto:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4);
+}
+
+/* Estilos para el botón de cerrar sesión */
+#logout-btn {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+#logout-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+#logout-btn:hover::before {
+    left: 100%;
+}
+
+#logout-btn:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
+}
+
+#logout-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(139, 0, 0, 0.4);
+}
+
+#logout-btn i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+#logout-btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Estilos para botones de cerrar formularios de administrador */
+.close-admin-form-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.close-admin-form-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.close-admin-form-btn:active {
+    transform: scale(0.95);
+}
+
+/* Estilos para los botones del dashboard del administrador */
+.dashboard-card-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-card-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.dashboard-card-btn:hover::before {
+    left: 100%;
+}
+
+.dashboard-card-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(139, 0, 0, 0.4);
+}
+
+.dashboard-card-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+}
+
+.dashboard-card-btn h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.dashboard-card-btn p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.dashboard-card-btn i {
+    transition: transform 0.3s ease;
+}
+
+.dashboard-card-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Estilo para el encabezado móvil */
+.header-mobile {
+    display: none;
+}
+
+/* Estilo para el botón de cerrar menú */
+.close-menu {
+    display: none;
+}
+
+/* Clase para ocultar elementos */
+.disabled {
+    display: none;
+}
+
+/* Media queries para diseño responsive */
+
+/* Estilos para pantallas hasta 850px */
+@media screen and (max-width: 850px) {
+    .contenedor-productos {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.2rem;
+    }
+}
+
+/* Estilos para pantallas hasta 675px */
+@media screen and (max-width: 675px) {
+    .contenedor-productos {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+    }
+}
+
+/* Estilos para pantallas hasta 600px */
+@media screen and (max-width: 600px) {
+    .wrapper {
+        min-height: 100vh;
+    }
+    
+    /* Ajustes para botones en móviles */
+    .producto-agregar,
+    .producto-descripcion {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+        min-width: 120px;
+    }
+    
+    .producto-acciones {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .producto h3 {
+        font-size: 1rem;
+    }
+    
+    .producto .precio {
+        font-size: 1.1rem;
+    }
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav-top {
+        display: none;
+    }
+
+    .nav-top.aside-visible {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(111, 109, 109);
+        z-index: 100;
+    }
+
+    .menu {
+        flex-direction: column;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    .contenedor-productos {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    .header-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background-color: rgb(111, 109, 109);
+        color: white;
+    }
+
+    .header-mobile .logo {
+        font-size: 1.2rem;
+    }
+
+    .open-menu, .close-menu {
+        display: block;
+        background: none;
+        border: 0;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .close-menu {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .carrito-producto {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .carrito-producto-subtotal {
+        display: none;
+    }
+
+    .carrito-acciones {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Estilos para pantallas hasta 430px */
+@media screen and (max-width: 430px) {
+    .contenedor-productos {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0.6rem;
+        padding: 0.3rem;
+    }
+    
+    .producto {
+        max-width: 100%;
+    }
+    
+    .producto img {
+        height: 140px;
+    }
+}
+
+/* Estilo para el control de cantidad */
+.cantidad-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Estilo para botones de incrementar y decrementar */
+.btn-incrementar, .btn-decrementar {
+    background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+    color: white;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(139, 0, 0, 0.3);
+}
+
+/* Efecto hover para botones de cantidad */
+.btn-incrementar:hover, .btn-decrementar:hover {
+    background: linear-gradient(135deg, #660000 0%, #8B0000 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(139, 0, 0, 0.4);
+}
+
+/* Estilo para el texto de cantidad */
+.cantidad-texto {
+    min-width: 2rem;
+    text-align: center;
+}
+
+/* Estilo para el subtotal del producto en el carrito */
+.carrito-producto-subtotal {
+    font-weight: bold;
+}
+
+/* Estilo para el modal general y de administrador */
+.modal, .login-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+/* Estilo para el contenido del modal */
+.modal-content, .login-modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    margin: 2rem auto;
+}
+
+/* Estilo para el botón de cerrar modal */
+.close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: rgb(111, 109, 109);
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: rgb(243, 49, 49);
+}
+
+/* Estilo para el título del modal */
+.modal-content h2, .login-modal-content h2 {
+    color: rgb(111, 109, 109);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Estilo para el resultado de reportes */
+.report-result {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background-color: #e2e2e2;
+    border-radius: 0.5rem;
+    color: black;
+    font-size: 1rem;
+    line-height: 1.5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para formularios dentro de modales */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: black;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e2e2e2;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: rgb(111, 109, 109);
+    box-shadow: 0 0 0 3px rgba(111, 109, 109, 0.1);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(139, 0, 0, 0.4);
+}
+
+/* Estilo para el botón de administrador */
+.admin-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgb(243, 49, 49);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.admin-button:hover {
+    background-color: rgb(111, 109, 109);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para el resultado de reportes */
+.report-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #e2e2e2;
+    border-radius: 0.5rem;
+}
+
+/* Estilos para el modal de descripción */
+.descripcion-modal-content {
+    max-width: 800px;
+    width: 90%;
+    margin: 5% auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.descripcion-producto {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.descripcion-imagen-container {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.descripcion-imagen {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 0.5rem;
+}
+
+.descripcion-detalles {
+    text-align: center;
+}
+
+.descripcion-titulo {
+    color: rgb(111, 109, 109);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.descripcion-texto {
+    color: black;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.descripcion-precio {
+    color: rgb(243, 49, 49);
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+#descripcion-agregar {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+    .descripcion-producto {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .descripcion-imagen-container {
+        width: 50%;
+    }
+
+    .descripcion-detalles {
+        width: 50%;
+        text-align: left;
+        padding-left: 2rem;
+    }
+}
+
+/* Estilos para el contenedor de login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 2rem;
+    background-color: white;
+}
+
+.login-container .modal-content {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Clase para ocultar elementos */
+.hidden {
+    display: none !important;
+}
+
+/* Estilos para la sección de contactos */
+.container-contactos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.social-media {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+.contact-info {
+    text-align: center;
+    color: rgb(111, 109, 109);
+    padding: 2rem;
+    background-color: #e2e2e2;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.contact-info h3 {
+    color: rgb(243, 49, 49);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.contact-info p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.contact-info i {
+    margin-right: 0.5rem;
+    color: rgb(243, 49, 49);
+}
+
+/* Estilos para la barra de búsqueda */
+.search-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid #e2e2e2;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    max-width: 300px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: rgb(111, 109, 109);
+    box-shadow: 0 0 0 3px rgba(111, 109, 109, 0.1);
+}
+
+.search-button {
+    padding: 0.8rem 1.5rem;
+    background-color: rgb(243, 49, 49);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: rgb(111, 109, 109);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para mensajes de error en formularios */
+.error-message {
+    color: rgb(243, 49, 49);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    padding: 0.25rem;
+    background-color: rgba(243, 49, 49, 0.1);
+    border-radius: 0.25rem;
+}
+
+.form-group input.error {
+    border: 2px solid rgb(243, 49, 49);
+    background-color: rgba(243, 49, 49, 0.05);
+}
+
+.form-group input.error:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(243, 49, 49, 0.3);
+}
+
+/* Estilos para el formulario de administración */
+#admin-product-form input:focus,
+#admin-product-form textarea:focus,
+#admin-product-form select:focus {
+    outline: none;
+    border-color: rgb(243, 49, 49);
+    box-shadow: 0 0 0 3px rgba(243, 49, 49, 0.1);
+    transform: translateY(-1px);
+}
+
+#admin-product-form input:hover,
+#admin-product-form textarea:hover,
+#admin-product-form select:hover {
+    border-color: rgb(243, 49, 49);
+}
+
+#admin-product-form .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(243, 49, 49, 0.6);
+}
+
+#admin-product-form .btn-submit:active {
+    transform: translateY(0);
+}
+
+/* Efecto hover para el área de subida de archivos */
+#admin-product-form .form-group:last-child div:hover {
+    border-color: rgb(243, 49, 49);
+    background: #f0f2ff;
+    transform: scale(1.02);
+}
+
+/* Animación para el mensaje de respuesta */
+#admin-product-form-msg {
+    animation: fadeInUp 0.3s ease-out;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+#admin-product-form-msg.success {
+    background: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+    animation: fadeInUp 0.5s ease;
+}
+
+#admin-product-form-msg.error {
+    background: rgba(220, 53, 69, 0.1);
+    border: 2px solid #dc3545;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive para el formulario */
+@media (max-width: 768px) {
+    #admin-product-form-container > div {
+        padding: 1rem;
+    }
+    
+    #admin-product-form {
+        padding: 1.5rem;
+    }
+    
+    #admin-product-form > div:first-child,
+    #admin-product-form > div:nth-child(2) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Estilos para el título de administrador */
+#admin-title-container {
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+#admin-title-container h1 {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive para el título de administrador */
+@media (max-width: 768px) {
+    #admin-title-container {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    #admin-title-container h1 {
+        font-size: 2.5rem !important;
+        letter-spacing: 1px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #admin-title-container h1 {
+        font-size: 2rem !important;
+        letter-spacing: 0.5px !important;
+    }
+}
+
+/* Ocultar menú de navegación para admin */
+.nav-top nav[style*="display: none"] {
+    display: none !important;
+}
+
+/* Estilos para el botón de agregar producto */
+.admin-add-btn {
+    background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%);
+    color: white;
+    border: none;
+    padding: 1.5rem 3.5rem;
+    border-radius: 35px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.4,2,.3,1);
+    box-shadow: 0 6px 24px rgba(111, 109, 109, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    min-width: 320px;
+    min-height: 70px;
+    margin-bottom: 2rem;
+    justify-content: center;
+    letter-spacing: 0.5px;
+}
+
+.admin-add-btn i {
+    font-size: 2.2rem;
+}
+
+.admin-add-btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 32px rgba(111, 109, 109, 0.22);
+    background: linear-gradient(135deg, rgb(100, 98, 98) 0%, rgb(220, 44, 44) 100%);
+}
+
+.admin-add-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(111, 109, 109, 0.18);
+}
+
+/* Estilos para el botón de informes del administrador */
+.admin-report-btn {
+    background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%);
+    color: white;
+    border: none;
+    padding: 1.5rem 3.5rem;
+    border-radius: 35px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.4,2,.3,1);
+    box-shadow: 0 6px 24px rgba(111, 109, 109, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    min-width: 320px;
+    min-height: 70px;
+    margin-bottom: 2rem;
+    justify-content: center;
+    letter-spacing: 0.5px;
+}
+
+.admin-report-btn i {
+    font-size: 2.2rem;
+}
+
+.admin-report-btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 32px rgba(111, 109, 109, 0.22);
+    background: linear-gradient(135deg, rgb(100, 98, 98) 0%, rgb(220, 44, 44) 100%);
+}
+
+.admin-report-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(111, 109, 109, 0.18);
+}
+
+/* Estilos para el formulario de informes */
+#admin-report-form-container {
+    animation: slideDown 0.3s ease-out;
+}
+
+#admin-report-form-container.hidden {
+    display: none !important;
+}
+
+/* Estilos para el botón de cerrar formulario de informes */
+#close-admin-report-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+#close-admin-report-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+#close-admin-report-btn:active {
+    transform: scale(0.95);
+}
+
+/* Estilos para los resultados de informes */
+#admin-report-result {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#admin-report-result h3 {
+    color: rgb(243, 49, 49);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+#admin-report-result h4 {
+    color: #333;
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+#admin-report-result p {
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+#admin-report-result ul, #admin-report-result ol {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+#admin-report-result li {
+    margin: 0.3rem 0;
+    color: #555;
+}
+
+#admin-report-result table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+#admin-report-result th,
+#admin-report-result td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+#admin-report-result th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Estilos para mensajes del formulario de informes */
+#admin-report-form-msg {
+    min-height: 20px;
+}
+
+#admin-report-form-msg.success {
+    color: #28a745;
+}
+
+#admin-report-form-msg.error {
+    color: #dc3545;
+}
+
+/* Responsive para el formulario de informes */
+@media (max-width: 768px) {
+    #admin-report-form-container .form-group {
+        grid-template-columns: 1fr !important;
+    }
+    
+    #admin-report-form-container {
+        padding: 1rem !important;
+    }
+    
+    #admin-report-form {
+        padding: 1rem !important;
+    }
+    
+    .admin-report-btn {
+        padding: 1.1rem 1.2rem;
+        font-size: 1.1rem;
+        min-width: 180px;
+        min-height: 48px;
+    }
+    .admin-report-btn i {
+        font-size: 1.4rem;
+    }
+}
+
+/* Estilos para el botón de usuarios del administrador */
+.admin-users-btn {
+    background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%);
+    color: white;
+    border: none;
+    padding: 1.5rem 3.5rem;
+    border-radius: 35px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.4,2,.3,1);
+    box-shadow: 0 6px 24px rgba(111, 109, 109, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    min-width: 320px;
+    min-height: 70px;
+    margin-bottom: 2rem;
+    justify-content: center;
+    letter-spacing: 0.5px;
+}
+
+.admin-users-btn i {
+    font-size: 1.4rem;
+}
+
+.admin-users-btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 32px rgba(111, 109, 109, 0.22);
+    background: linear-gradient(135deg, rgb(100, 98, 98) 0%, rgb(220, 44, 44) 100%);
+}
+
+.admin-users-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(111, 109, 109, 0.18);
+}
+
+/* Estilos para el formulario de usuarios */
+#admin-users-form-container {
+    animation: slideDown 0.3s ease-out;
+}
+
+#admin-users-form-container.hidden {
+    display: none !important;
+}
+
+/* Estilos para el botón de cerrar formulario de usuarios */
+#close-admin-users-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+#close-admin-users-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+#close-admin-users-btn:active {
+    transform: scale(0.95);
+}
+
+/* Estilos para la tabla de usuarios */
+#admin-users-content {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.users-table th,
+.users-table td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+.users-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.users-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.users-table td {
+    color: #555;
+}
+
+.user-role {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.user-role.admin {
+    background-color: #dc3545;
+    color: white;
+}
+
+.user-role.cliente {
+    background-color: #28a745;
+    color: white;
+}
+
+.user-status {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.user-status.active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.user-status.inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Estilos para estadísticas de usuarios */
+.users-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(243, 49, 49);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Estilos para filtros de usuarios */
+.users-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 0.5rem;
+    border: 2px solid #e1e5e9;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+/* Estilos para mensajes del formulario de usuarios */
+#admin-users-form-msg {
+    min-height: 20px;
+}
+
+#admin-users-form-msg.success {
+    color: #28a745;
+}
+
+#admin-users-form-msg.error {
+    color: #dc3545;
+}
+
+/* Responsive para el formulario de usuarios */
+@media (max-width: 768px) {
+    #admin-users-form-container {
+        padding: 1rem !important;
+    }
+    
+    #admin-users-content {
+        padding: 1rem !important;
+    }
+    
+    .users-table {
+        font-size: 0.8rem;
+    }
+    
+    .users-table th,
+    .users-table td {
+        padding: 0.5rem;
+    }
+    
+    .admin-users-btn {
+        padding: 1.1rem 1.2rem;
+        font-size: 1.1rem;
+        min-width: 180px;
+        min-height: 48px;
+    }
+    .admin-users-btn i {
+        font-size: 1.4rem;
+    }
+    
+    .users-filters {
+        flex-direction: column;
+    }
+    
+    .users-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Contenedores centrados y con espacio */
+#admin-add-product-btn-container,
+#admin-report-btn-container,
+#admin-users-btn-container,
+#admin-view-products-btn-container {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    width: 100%;
+}
+
+/* Estilos para el mensaje de bienvenida del usuario */
+#user-name {
+    display: none;
+    background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%);
+    color: white;
+    padding: 1.5rem 3rem;
+    border-radius: 30px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(111, 109, 109, 0.4);
+    margin: 1.5rem 0;
+    letter-spacing: 1px;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    line-height: 1.2;
+}
+
+#user-name::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+#user-name:hover::before {
+    left: 100%;
+}
+
+/* Contenedor del área de usuario */
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Estilos para el botón de login/logout */
+#login-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 0.9rem;
+    padding: 0.3em 1em;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    border: none;
+    z-index: 20;
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    width: auto;
+    height: auto;
+    line-height: 1.2;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#login-btn:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(139, 0, 0, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Responsive para el área de usuario */
+@media (max-width: 768px) {
+    .user-area {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    #user-name {
+        font-size: 1.5rem;
+        padding: 1.2rem 2rem;
+        letter-spacing: 0.8px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    
+    #login-btn {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+/* Botón para ver productos agregados */
+.admin-view-products-btn {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    border: none;
+    padding: 1.5rem 3.5rem;
+    border-radius: 35px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.4,2,.3,1);
+    box-shadow: 0 6px 24px rgba(139, 0, 0, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    min-width: 320px;
+    min-height: 70px;
+    margin-bottom: 2rem;
+    justify-content: center;
+    letter-spacing: 0.5px;
+}
+
+.admin-view-products-btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 32px rgba(139, 0, 0, 0.4);
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+}
+
+.admin-view-products-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(111, 109, 109, 0.18);
+}
+
+.admin-view-products-btn i {
+    font-size: 2.2rem;
+}
+
+/* Estilos para los botones de categoría en el modal */
+.category-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Estilos para las tarjetas de productos en el modal */
+.product-card-modal {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.product-card-modal:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-color: #8B0000;
+}
+
+.product-card-modal img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.product-card-modal h4 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.product-card-modal .price {
+    color: #8B0000;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 2px rgba(139, 0, 0, 0.3);
+}
+
+.product-card-modal .stock {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.product-card-modal .actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.product-card-modal .btn-edit,
+.product-card-modal .btn-delete {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.product-card-modal .btn-edit {
+    background: #f1c40f;
+    color: #222;
+}
+
+.product-card-modal .btn-edit:hover {
+    background: #f39c12;
+}
+
+.product-card-modal .btn-delete {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(139, 0, 0, 0.3);
+}
+
+.product-card-modal .btn-delete:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(139, 0, 0, 0.4);
+}
+
+.users-filters {
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .admin-report-btn i {
+        font-size: 1.4rem;
+    }
+    
+    .admin-view-products-btn {
+        padding: 1.1rem 1.2rem;
+        font-size: 1.1rem;
+        min-width: 180px;
+        min-height: 48px;
+    }
+    .admin-view-products-btn i {
+        font-size: 1.4rem;
+    }
+    
+    #logout-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+    }
+    
+    #logout-btn i {
+        font-size: 1rem;
+    }
+    
+    .dashboard-card-btn {
+        padding: 1.5rem !important;
+    }
+    
+    .dashboard-card-btn h3 {
+        font-size: 1.3rem;
+    }
+    
+    .dashboard-card-btn p {
+        font-size: 0.9rem;
+    }
+    
+    .dashboard-card-btn i {
+        font-size: 2.5rem !important;
+    }
+}
+
+/* Barra de navegación principal desktop */
+.main-navbar {
+    background: rgb(111, 109, 109);
+    padding: 1rem 2rem 0 2rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    z-index: 20;
+}
+.main-navbar .search-container {
+    flex: 1;
+    max-width: 350px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.main-navbar .search-input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background: #fff;
+    color: #333;
+}
+.main-navbar .search-input:focus {
+    border-color: #8B0000;
+    outline: none;
+}
+.main-navbar .search-button {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.main-navbar .search-button:hover {
+    background: linear-gradient(135deg, #660000 0%, #B22222 100%);
+}
+.main-navbar .main-categories {
+    display: flex;
+    gap: 1rem;
+}
+.main-navbar .boton-menu.boton-categoria {
+    background: #fff;
+    color: rgb(111, 109, 109);
+    border: 2px solid rgb(111, 109, 109);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.08);
+    margin-bottom: 0;
+    width: auto;
+}
+.main-navbar .boton-menu.boton-categoria.active,
+.main-navbar .boton-menu.boton-categoria:hover {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: #fff;
+    border-color: #8B0000;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.15);
+}
+.main-navbar .boton-carrito {
+    background: #fff;
+    color: rgb(111, 109, 109);
+    border: 2px solid rgb(111, 109, 109);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.08);
+    margin-bottom: 0;
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    text-decoration: none;
+}
+.main-navbar .boton-carrito:hover {
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: #fff;
+    border-color: #8B0000;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.15);
+}
+.main-navbar .boton-carrito .numerito {
+    background-color: rgb(111, 109, 109);
+    color: #fff;
+    margin-left: 0.5rem;
+    font-weight: bold;
+}
+@media (max-width: 850px) {
+    .main-navbar {
+        display: none !important;
+    }
+}
+
+/* Título profesional para secciones principales */
+.titulo-principal {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    background: linear-gradient(90deg, #8B0000 0%, #DC143C 60%, #6f6d6d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    letter-spacing: 1.5px;
+    text-shadow: 0 4px 24px rgba(139,0,0,0.10), 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 1rem;
+    padding: 0.7rem 2rem;
+    margin: 2rem auto 2.5rem auto;
+    display: block;
+    box-sizing: border-box;
+    transition: text-shadow 0.3s, font-size 0.3s;
+    max-width: 100%;
+}
+.titulo-principal:hover {
+    text-shadow: 0 6px 32px rgba(220,20,60,0.18), 0 2px 8px rgba(0,0,0,0.12);
+    font-size: 2.6rem;
+}
+@media (max-width: 600px) {
+    .titulo-principal {
+        font-size: 1.5rem;
+        padding: 0.4rem 1rem;
+        margin: 1.2rem auto 1.5rem auto;
+    }
+    .titulo-principal:hover {
+        font-size: 1.6rem;
+    }
+}
+
+.modal-content {
+    position: relative;
+    padding-top: 2.5rem !important;
+    padding-right: 2.5rem !important;
+    z-index: 1002;
+}
+.close-modal {
+    z-index: 1003 !important;
+    background: none;
+    border: none;
+    color: rgb(111, 109, 109);
+    font-size: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    transition: color 0.3s, background 0.3s, box-shadow 0.3s;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.close-modal:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.18);
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        padding-top: 3.5rem !important;
+        padding-right: 1.2rem !important;
+    }
+    .close-modal {
+        right: 0.5rem;
+        top: 0.5rem;
+        font-size: 2.2rem;
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+}
+
+/* Estilos específicos para el modal de editar producto */
+#admin-edit-product-modal .modal-content {
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#admin-edit-product-modal .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+#admin-edit-product-modal .close-modal:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale(1.1);
+}
+
+#admin-edit-product-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#admin-edit-product-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+#admin-edit-product-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+#admin-edit-product-form input,
+#admin-edit-product-form select,
+#admin-edit-product-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+#admin-edit-product-form input:focus,
+#admin-edit-product-form select:focus,
+#admin-edit-product-form textarea:focus {
+    outline: none;
+    border-color: #8B0000;
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+#admin-edit-product-form .btn-submit {
+    background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(111, 109, 109, 0.4);
+}
+
+#admin-edit-product-form .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(111, 109, 109, 0.6);
+}
+
+#admin-edit-product-form-msg {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+#admin-edit-product-form-msg.success {
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+#admin-edit-product-form-msg.error {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+#current-image-preview {
+    margin-top: 1rem;
+    text-align: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+#current-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    border: 2px solid #e1e5e9;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive para el modal de editar producto */
+@media (max-width: 768px) {
+    #admin-edit-product-modal .modal-content {
+        width: 95%;
+        margin: 10px auto;
+    }
+    
+    #admin-edit-product-form {
+        padding: 1.5rem;
+    }
+    
+    #admin-edit-product-form > div:first-child,
+    #admin-edit-product-form > div:nth-child(2) {
+        grid-template-columns: 1fr;
+    }
+}
+

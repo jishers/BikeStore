@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKE STORE - Contacto</title>
+    <!-- Enlaces a recursos externos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <!-- Contenedor principal de la página -->
+    <div class="wrapper">
+        <!-- Encabezado para dispositivos móviles -->
+        <header class="header-mobile">
+            <h1 class="logo">BIKE-STORE ONLINE</h1>
+            <button class="open-menu" id="open-menu">
+                <i class="bi bi-list"></i>
+            </button>
+        </header>
+        <!-- Barra lateral de navegación -->
+        <aside class="nav-top">
+            <button class="close-menu" id="close-menu">
+                <i class="bi bi-x"></i>
+            </button>
+            <header>
+                <h1 class="logo">BIKE-STORE ONLINE</h1>
+            </header>
+            <nav>
+                <ul class="menu">
+                    <!-- Botón para volver a la página principal -->
+                    <li>
+                        <a class="boton-menu boton-volver" href="index.html">
+                            <i class="bi bi-arrow-return-left"></i> Volver
+                        </a>
+                    </li>
+                    <!-- Botón activo de la página actual -->
+                    <li>
+                        <button id="todos" class="boton-menu active">
+                            <i class="bi bi-person-lines-fill"></i> Contáctanos
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Contenido principal -->
+        <main>
+            <h2 class="titulo-principal">Contáctanos</h2>
+
+            <!-- Contenedor para la información de contacto -->
+            <div class="container-contactos">
+                <!-- Sección de redes sociales -->
+                <div class="social-media">
+                    <a href="https://facebook.com" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png"
+                            alt="Facebook" class="social-icon">
+                    </a>
+                    <a href="https://wa.me/1234567890" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/767px-WhatsApp.svg.png"
+                            alt="WhatsApp" class="social-icon">
+                    </a>
+                </div>
+
+                <!-- Información de contacto -->
+                <div class="contact-info">
+                    <h3>Información de Contacto</h3>
+                    <p><i class="bi bi-geo-alt-fill"></i> Calle Principal #123, Palmira</p>
+                    <p><i class="bi bi-telephone-fill"></i> +57 310 123 4567</p>
+                    <p><i class="bi bi-envelope-fill"></i> contacto@bikestore.com</p>
+                    <p><i class="bi bi-clock-fill"></i> Lunes a Sábado: 9:00 AM - 7:00 PM</p>
+                </div>
+            </div>
+        </main>
+        <!-- Pie de página -->
+        <footer>
+            <p class="texto-footer">© 2025 BIKE-STORE ONLINE</p>
+        </footer>
+    </div>
+    <!-- Scripts de JavaScript -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./js/menu.js"></script>
+</body>
+
+</html>

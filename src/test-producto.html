@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Agregar Producto</title>
+</head>
+
+<body>
+    <h1>Test Agregar Producto</h1>
+    <form id="test-form">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="Test Producto" required>
+        </div>
+        <div>
+            <label for="precio_venta">Precio:</label>
+            <input type="number" id="precio_venta" name="precio_venta" value="100000" required>
+        </div>
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion">Producto de prueba</textarea>
+        </div>
+        <div>
+            <label for="destacado">Destacado:</label>
+            <select id="destacado" name="destacado">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+        </div>
+        <div>
+            <label for="categoria">Categoría:</label>
+            <input type="text" id="categoria" name="categoria" value="test" required>
+        </div>
+        <div>
+            <label for="imagen">Imagen:</label>
+            <input type="file" id="imagen" name="imagen" accept="image/*">
+        </div>
+        <div>
+            <label for="rol">Rol:</label>
+            <input type="text" id="rol" name="rol" value="admin" required>
+        </div>
+        <button type="submit">Agregar Producto</button>
+    </form>
+    <div id="resultado"></div>
+
+    <script>
+        document.getElementById('test-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('nombre', document.getElementById('nombre').value);
+            formData.append('precio_venta', document.getElementById('precio_venta').value);
+            formData.append('descripcion', document.getElementById('descripcion').value);
+            formData.append('destacado', document.getElementById('destacado').value);
+            formData.append('categoria', document.getElementById('categoria').value);
+            formData.append('rol', document.getElementById('rol').value);
+
+            const imagenInput = document.getElementById('imagen');
+            if (imagenInput.files.length > 0) {
+                formData.append('imagen', imagenInput.files[0]);
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/productos', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                const resultadoDiv = document.getElementById('resultado');
+
+                if (response.ok) {
+                    resultadoDiv.innerHTML = `<p style="color: green;">Éxito: ${JSON.stringify(data)}</p>`;
+                } else {
+                    resultadoDiv.innerHTML = `<p style="color: red;">Error: ${JSON.stringify(data)}</p>`;
+                }
+            } catch (error) {
+                document.getElementById('resultado').innerHTML = `<p style="color: red;">Error de red: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+
+</html>

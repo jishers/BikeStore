@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKE STORE - Panel de Administración</title>
+    <!-- Enlaces a recursos externos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <!-- Contenedor principal de la página -->
+    <div class="wrapper">
+        <!-- Encabezado para dispositivos móviles -->
+        <header class="header-mobile">
+            <a href="index.html"><img src="../img/logo/Logo.png" width="150" alt="Logo" class="logo"></a>
+        </header>
+        <!-- Barra lateral con menú de navegación -->
+        <aside class="nav-top">
+            <header>
+                <a href="index.html"><img src="../img/logo/Logo.png" width="150" alt="Logo" class="logo"></a>
+            </header>
+
+            <!-- Título de administrador -->
+            <div id="admin-title-container" style="text-align: center; padding: 2rem 0;">
+                <!-- Título centrado -->
+                <h1
+                    style="font-size: 3.5rem; font-weight: 900; background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; text-shadow: 0 4px 8px rgba(139, 0, 0, 0.3); letter-spacing: 2px;">
+                    BIKE-STORE J,A,J
+                </h1>
+                <h2 style="color: #333; margin-top: 1rem; font-size: 1.5rem;">Panel de Administración</h2>
+            </div>
+
+            <nav>
+                <ul class="menu">
+                    <!-- Enlaces de navegación del administrador -->
+                    <li>
+                        <a href="index.html" class="boton-menu">
+                            <i class="bi bi-house-fill"></i> Volver a Tienda
+                        </a>
+                    </li>
+                    <li>
+                        <button id="admin-add-product-btn" class="boton-menu">
+                            <i class="bi bi-plus-circle-fill"></i> Agregar Producto
+                        </button>
+                    </li>
+                    <li>
+                        <button id="admin-view-products-btn" class="boton-menu">
+                            <i class="bi bi-box-seam-fill"></i> Ver Productos
+                        </button>
+                    </li>
+                    <li>
+                        <button id="admin-report-btn" class="boton-menu">
+                            <i class="bi bi-graph-up"></i> Generar Informes
+                        </button>
+                    </li>
+                    <li>
+                        <button id="admin-users-btn" class="boton-menu">
+                            <i class="bi bi-people-fill"></i> Ver Usuarios
+                        </button>
+                    </li>
+                    <li>
+                        <button id="logout-btn" class="boton-menu">
+                            <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal de la página -->
+        <main>
+            <!-- Información del administrador -->
+            <div class="user-area"
+                style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span id="admin-name" style="font-weight: bold; color: #333; font-size: 1.2rem;"></span>
+                    <span
+                        style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3);">Administrador</span>
+                </div>
+                <button id="logout-btn-dashboard"
+                    style="display: flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: white; border: none; padding: 0.5rem 1.2rem; border-radius: 20px; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(139, 0, 0, 0.2); transition: all 0.2s;">
+                    <i class="bi bi-box-arrow-right" style="font-size: 1.2rem;"></i>
+                    Cerrar Sesión
+                </button>
+            </div>
+
+            <!-- Sección de notificaciones para administrador -->
+            <div id="notificaciones-admin" style="margin-bottom: 1rem;"></div>
+
+            <h2 class="titulo-principal">Panel de Administración</h2>
+
+            <!-- Dashboard del administrador -->
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <button id="dashboard-add-product" class="dashboard-card-btn"
+                    style="background: linear-gradient(135deg, #6e0b0b 0%, #b71c1c 100%); color: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3); border: none; cursor: pointer; transition: all 0.3s ease; width: 100%;">
+                    <i class="bi bi-plus-circle-fill" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h3>Agregar Producto</h3>
+                    <p>Agrega un nuevo producto a la tienda</p>
+                </button>
+                <button id="dashboard-gestionar-productos" class="dashboard-card-btn"
+                    style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3); border: none; cursor: pointer; transition: all 0.3s ease; width: 100%;">
+                    <i class="bi bi-box-seam-fill" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h3>Gestionar Productos</h3>
+                    <p>Agrega, edita y administra productos de la tienda</p>
+                </button>
+                <button id="dashboard-informes" class="dashboard-card-btn"
+                    style="background: linear-gradient(135deg, #A52A2A 0%, #8B0000 100%); color: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3); border: none; cursor: pointer; transition: all 0.3s ease; width: 100%;">
+                    <i class="bi bi-graph-up" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h3>Informes y Estadísticas</h3>
+                    <p>Genera informes detallados de ventas y productos</p>
+                </button>
+                <button id="dashboard-gestionar-usuarios" class="dashboard-card-btn"
+                    style="background: linear-gradient(135deg, #660000 0%, #B22222 100%); color: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3); border: none; cursor: pointer; transition: all 0.3s ease; width: 100%;">
+                    <i class="bi bi-people-fill" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h3>Gestionar Usuarios</h3>
+                    <p>Administra usuarios registrados en el sistema</p>
+                </button>
+            </div>
+
+            <!-- Formulario de administración para agregar productos -->
+            <div id="admin-product-form-container" style="display:none; margin-bottom:2rem;">
+                <div
+                    style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3); margin-bottom: 2rem; position: relative;">
+                    <!-- Botón de cerrar -->
+                    <button id="close-admin-form-btn" class="close-admin-form-btn">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                    <h3
+                        style="color: white; margin: 0 0 1.5rem 0; font-size: 1.8rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                        <i class="bi bi-plus-circle-fill" style="margin-right: 0.5rem;"></i>
+                        Agregar Nuevo Producto
+                    </h3>
+                    <form id="admin-product-form"
+                        style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="form-group" style="margin: 0;">
+                                <label for="product-nombre"
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                    <i class="bi bi-tag-fill"
+                                        style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Nombre
+                                    del Producto
+                                </label>
+                                <input type="text" id="product-nombre" name="product-nombre" required
+                                    style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box;"
+                                    placeholder="Ej: Bicicleta Mountain Bike">
+                            </div>
+                            <div class="form-group" style="margin: 0;">
+                                <label for="product-precio"
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                    <i class="bi bi-currency-dollar"
+                                        style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Precio
+                                </label>
+                                <input type="number" id="product-precio" name="product-precio" required min="0"
+                                    style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box;"
+                                    placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="form-group" style="margin: 0;">
+                                <label for="product-cantidad"
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                    <i class="bi bi-box-seam-fill"
+                                        style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Cantidad en Stock
+                                </label>
+                                <input type="number" id="product-cantidad" name="product-cantidad" required min="0"
+                                    style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box;"
+                                    placeholder="0">
+                            </div>
+                            <div class="form-group" style="margin: 0;">
+                                <label for="product-categoria"
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                    <i class="bi bi-collection-fill"
+                                        style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Categoría
+                                </label>
+                                <select id="product-categoria" name="product-categoria" required
+                                    style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box; background: white;">
+                                    <option value="">Selecciona una categoría</option>
+                                    <option value="bicicleta">Bicicletas</option>
+                                    <option value="accesorios">Accesorios</option>
+                                    <option value="repuestos">Repuestos</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label for="product-descripcion"
+                                style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                <i class="bi bi-card-text"
+                                    style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Descripción
+                                del Producto
+                            </label>
+                            <textarea id="product-descripcion" name="product-descripcion"
+                                style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box; min-height: 100px; resize: vertical; font-family: inherit;"
+                                placeholder="Describe las características y beneficios del producto..."></textarea>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label for="product-imagen"
+                                style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                <i class="bi bi-image-fill"
+                                    style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Imagen del
+                                Producto
+                            </label>
+                            <div
+                                style="position: relative; border: 2px dashed rgb(243, 49, 49); border-radius: 8px; padding: 2rem; text-align: center; background: #f8f9ff; transition: all 0.3s ease;">
+                                <input type="file" id="product-imagen" name="product-imagen" accept="image/*" required
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+                                <div>
+                                    <i class="bi bi-cloud-upload"
+                                        style="font-size: 3rem; color: rgb(243, 49, 49); margin-bottom: 1rem;"></i>
+                                    <p style="margin: 0; color: rgb(243, 49, 49); font-weight: 600;">Haz clic para
+                                        seleccionar
+                                        una imagen</p>
+                                    <small style="color: #666; display: block; margin-top: 0.5rem;">Formatos permitidos:
+                                        JPG, PNG, GIF, WEBP. Máximo 5MB.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <button type="submit" class="btn-submit"
+                                style="background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%); color: white; border: none; padding: 1rem 2.5rem; border-radius: 25px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(111, 109, 109, 0.4);">
+                                <i class="bi bi-plus-circle-fill" style="margin-right: 0.5rem;"></i>
+                                Agregar Producto
+                            </button>
+                        </div>
+                    </form>
+                    <div id="admin-product-form-msg" style="margin-top: 1rem; text-align: center; font-weight: 600;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de informes para administrador -->
+            <div id="admin-report-form-container" style="display:none; margin-bottom:2rem;">
+                <div
+                    style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3); margin-bottom: 2rem; position: relative;">
+                    <!-- Botón de cerrar -->
+                    <button id="close-admin-report-btn" class="close-admin-form-btn">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                    <h3
+                        style="color: white; margin: 0 0 1.5rem 0; font-size: 1.8rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                        <i class="bi bi-graph-up" style="margin-right: 0.5rem;"></i>
+                        Generar Informes
+                    </h3>
+                    <form id="admin-report-form"
+                        style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="form-group" style="margin: 0;">
+                                <label for="report-type"
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                    <i class="bi bi-bar-chart-fill"
+                                        style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Tipo de Informe
+                                </label>
+                                <select id="report-type" name="report-type" required
+                                    style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box; background: white;">
+                                    <option value="">Selecciona un tipo de informe</option>
+                                    <optgroup label="Informes de Ventas">
+                                        <option value="mas-vendido">Producto más vendido en un rango de fechas</option>
+                                        <option value="menos-vendido">Producto menos vendido</option>
+                                        <option value="mas-popular">Producto más popular</option>
+                                        <option value="ventas-por-fecha">Ventas totales por fecha</option>
+                                        <option value="ventas-por-categoria">Ventas por categoría</option>
+                                    </optgroup>
+                                    <optgroup label="Informes de Inventario">
+                                        <option value="operaciones-admin">Operaciones de administradores</option>
+                                        <option value="productos-mas-agregados">Productos con más cantidad agregada</option>
+                                        <option value="resumen-inventario">Resumen general del inventario</option>
+                                        <option value="stock-actual">Stock actual de productos</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin: 0;">
+                                <label for="report-period"
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                    <i class="bi bi-calendar-range"
+                                        style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Período
+                                </label>
+                                <select id="report-period" name="report-period"
+                                    style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box; background: white;">
+                                    <option value="today">Hoy</option>
+                                    <option value="week">Esta semana</option>
+                                    <option value="month">Este mes</option>
+                                    <option value="quarter">Este trimestre</option>
+                                    <option value="year">Este año</option>
+                                    <option value="custom">Rango personalizado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="report-date-range" style="display:none; margin-bottom: 1.5rem;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                                <div class="form-group" style="margin: 0;">
+                                    <label for="report-start-date"
+                                        style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                        <i class="bi bi-calendar-event"
+                                            style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Fecha de inicio
+                                    </label>
+                                    <input type="date" id="report-start-date" name="report-start-date"
+                                        style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box;">
+                                </div>
+                                <div class="form-group" style="margin: 0;">
+                                    <label for="report-end-date"
+                                        style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                        <i class="bi bi-calendar-event"
+                                            style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Fecha de fin
+                                    </label>
+                                    <input type="date" id="report-end-date" name="report-end-date"
+                                        style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <button type="submit" class="btn-submit"
+                                style="background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%); color: white; border: none; padding: 1rem 2.5rem; border-radius: 25px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(111, 109, 109, 0.4);">
+                                <i class="bi bi-graph-up" style="margin-right: 0.5rem;"></i>
+                                Generar Informe
+                            </button>
+                        </div>
+                    </form>
+                    <div id="admin-report-form-msg" style="margin-top: 1rem; text-align: center; font-weight: 600;">
+                    </div>
+                    <div id="admin-report-result"
+                        style="margin-top: 1.5rem; background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de usuarios para administrador -->
+            <div id="admin-users-form-container" style="display:none; margin-bottom:2rem;">
+                <div
+                    style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3); margin-bottom: 2rem; position: relative;">
+                    <!-- Botón de cerrar -->
+                    <button id="close-admin-users-btn" class="close-admin-form-btn">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                    <h3
+                        style="color: white; margin: 0 0 1.5rem 0; font-size: 1.8rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                        <i class="bi bi-people-fill" style="margin-right: 0.5rem;"></i>
+                        Usuarios Registrados
+                    </h3>
+                    <div id="admin-users-content"
+                        style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <!-- Contenido de usuarios se cargará aquí -->
+                        <div style="text-align: center; padding: 2rem;">
+                            <i class="bi bi-arrow-clockwise"
+                                style="font-size: 2rem; color: #ccc; margin-bottom: 1rem;"></i>
+                            <p style="color: #666; margin: 0;">Cargando usuarios...</p>
+                        </div>
+                    </div>
+                    <div id="admin-users-form-msg" style="margin-top: 1rem; text-align: center; font-weight: 600;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para ver productos agregados -->
+            <div id="admin-view-products-modal" class="modal" style="display:none;">
+                <div class="modal-content" style="max-width: 90%; max-height: 90%; overflow-y: auto;">
+                    <span class="close-modal" id="close-view-products-modal">&times;</span>
+
+                    <!-- Vista de categorías -->
+                    <div id="categories-view">
+                        <h3
+                            style="color: white; margin: 0 0 1.5rem 0; font-size: 1.8rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3); background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%); padding: 1rem; border-radius: 10px;">
+                            <i class="bi bi-collection-fill" style="margin-right: 0.5rem;"></i>
+                            Seleccionar Categoría
+                        </h3>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                            <button class="category-btn" data-category="bicicleta"
+                                style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: white; border: none; padding: 2rem; border-radius: 15px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);">
+                                <i class="bi bi-bicycle"
+                                    style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
+                                Bicicletas
+                            </button>
+                            <button class="category-btn" data-category="accesorios"
+                                style="background: linear-gradient(135deg, #A52A2A 0%, #8B0000 100%); color: white; border: none; padding: 2rem; border-radius: 15px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);">
+                                <i class="bi bi-tools"
+                                    style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
+                                Accesorios
+                            </button>
+                            <button class="category-btn" data-category="repuestos"
+                                style="background: linear-gradient(135deg, #660000 0%, #B22222 100%); color: white; border: none; padding: 2rem; border-radius: 15px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);">
+                                <i class="bi bi-gear-fill"
+                                    style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
+                                Repuestos
+                            </button>
+                        </div>
+                        <div style="text-align: center;">
+                            <button id="back-to-categories" class="btn-submit"
+                                style="background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%); color: white; border: none; padding: 1rem 2rem; border-radius: 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(111, 109, 109, 0.4); display: none;">
+                                <i class="bi bi-arrow-left" style="margin-right: 0.5rem;"></i>
+                                Volver a Categorías
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Vista de productos de la categoría seleccionada -->
+                    <div id="products-view" style="display: none;">
+                        <h3 id="category-title"
+                            style="color: white; margin: 0 0 1.5rem 0; font-size: 1.8rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3); background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%); padding: 1rem; border-radius: 10px;">
+                            <i class="bi bi-box-seam-fill" style="margin-right: 0.5rem;"></i>
+                            Productos de <span id="selected-category-name"></span>
+                        </h3>
+                        <div id="products-grid"
+                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                            <!-- Los productos se cargarán aquí dinámicamente -->
+                        </div>
+                        <div id="no-products-message"
+                            style="text-align: center; padding: 3rem; color: #666; display: none;">
+                            <i class="bi bi-inbox" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+                            <h4 style="margin: 0 0 0.5rem 0; color: #333;">No hay productos en esta categoría</h4>
+                            <p style="margin: 0; color: #666;">Agrega productos usando el botón "Agregar Producto"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para editar producto -->
+            <div id="admin-edit-product-modal" class="modal" style="display:none;">
+                <div class="modal-content" style="max-width: 600px; max-height: 90%; overflow-y: auto;">
+                    <span class="close-modal" id="close-edit-product-modal">&times;</span>
+                    <div style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3); margin-bottom: 2rem; position: relative;">
+                        <h3 style="color: white; margin: 0 0 1.5rem 0; font-size: 1.8rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                            <i class="bi bi-pencil-fill" style="margin-right: 0.5rem;"></i>
+                            Editar Producto
+                        </h3>
+                        <form id="admin-edit-product-form" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                            <input type="hidden" id="edit-product-id">
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                                <div class="form-group" style="margin: 0;">
+                                    <label for="edit-product-nombre" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                        <i class="bi bi-tag-fill" style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Nombre del Producto
+                                    </label>
+                                    <input type="text" id="edit-product-nombre" name="edit-product-nombre" required
+                                        style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box;">
+                                </div>
+                                <div class="form-group" style="margin: 0;">
+                                    <label for="edit-product-precio" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                        <i class="bi bi-currency-dollar" style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Precio
+                                    </label>
+                                    <input type="number" id="edit-product-precio" name="edit-product-precio" required min="0"
+                                        style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box;">
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                                <div class="form-group" style="margin: 0;">
+                                    <label for="edit-product-cantidad" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                        <i class="bi bi-box-seam-fill" style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Cantidad en Stock
+                                    </label>
+                                    <input type="number" id="edit-product-cantidad" name="edit-product-cantidad" required min="0"
+                                        style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box;">
+                                </div>
+                                <div class="form-group" style="margin: 0;">
+                                    <label for="edit-product-categoria" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                        <i class="bi bi-collection-fill" style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Categoría
+                                    </label>
+                                    <select id="edit-product-categoria" name="edit-product-categoria" required
+                                        style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box; background: white;">
+                                        <option value="">Selecciona una categoría</option>
+                                        <option value="bicicleta">Bicicletas</option>
+                                        <option value="accesorios">Accesorios</option>
+                                        <option value="repuestos">Repuestos</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 1.5rem;">
+                                <label for="edit-product-descripcion" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                    <i class="bi bi-card-text" style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Descripción del Producto
+                                </label>
+                                <textarea id="edit-product-descripcion" name="edit-product-descripcion"
+                                    style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; box-sizing: border-box; min-height: 100px; resize: vertical; font-family: inherit;"></textarea>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 2rem;">
+                                <label for="edit-product-imagen" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; font-size: 0.95rem;">
+                                    <i class="bi bi-image-fill" style="margin-right: 0.3rem; color: rgb(243, 49, 49);"></i>Imagen del Producto
+                                </label>
+                                <div style="position: relative; border: 2px dashed rgb(243, 49, 49); border-radius: 8px; padding: 2rem; text-align: center; background: #f8f9ff; transition: all 0.3s ease;">
+                                    <input type="file" id="edit-product-imagen" name="edit-product-imagen" accept="image/*"
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+                                    <div>
+                                        <i class="bi bi-cloud-upload" style="font-size: 3rem; color: rgb(243, 49, 49); margin-bottom: 1rem;"></i>
+                                        <p style="margin: 0; color: rgb(243, 49, 49); font-weight: 600;">Haz clic para seleccionar una nueva imagen</p>
+                                        <small style="color: #666; display: block; margin-top: 0.5rem;">Formatos permitidos: JPG, PNG, GIF, WEBP. Máximo 5MB. Deja vacío para mantener la imagen actual.</small>
+                                    </div>
+                                </div>
+                                <div id="current-image-preview" style="margin-top: 1rem; text-align: center; display: none;">
+                                    <p style="font-weight: 600; color: #333; margin-bottom: 0.5rem;">Imagen actual:</p>
+                                    <img id="current-image" src="" alt="Imagen actual" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #e1e5e9;">
+                                </div>
+                            </div>
+
+                            <div style="text-align: center;">
+                                <button type="submit" class="btn-submit"
+                                    style="background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%); color: white; border: none; padding: 1rem 2.5rem; border-radius: 25px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(111, 109, 109, 0.4);">
+                                    <i class="bi bi-check-circle-fill" style="margin-right: 0.5rem;"></i>
+                                    Guardar Cambios
+                                </button>
+                            </div>
+                        </form>
+                        <div id="admin-edit-product-form-msg" style="margin-top: 1rem; text-align: center; font-weight: 600;"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts de JavaScript -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/administrador-panel.js"></script>
+</body>
+
+</html>

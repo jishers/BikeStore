@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Imágenes - BIKE STORE</title>
+</head>
+
+<body>
+    <h1>Test de Imágenes</h1>
+    <div id="resultado"></div>
+
+    <script>
+        async function testImages() {
+            const resultado = document.getElementById('resultado');
+
+            try {
+                // Obtener productos de la API
+                const response = await fetch('http://localhost:3001/api/productos');
+                const productos = await response.json();
+
+                resultado.innerHTML = '<h2>Productos de la API:</h2>';
+
+                productos.forEach(producto => {
+                    resultado.innerHTML += `
+                        <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                            <h3>${producto.nombre}</h3>
+                            <p><strong>Ruta de imagen en BD:</strong> ${producto.imagen}</p>
+                            <p><strong>URL completa:</strong> http://localhost:3001${producto.imagen}</p>
+                            <img src="http://localhost:3001${producto.imagen}" 
+                                 alt="${producto.nombre}" 
+                                 style="max-width: 200px; border: 1px solid #ddd;"
+                                 onerror="this.style.border='2px solid red'; this.alt='ERROR: No se pudo cargar la imagen';">
+                        </div>
+                    `;
+                });
+
+            } catch (error) {
+                resultado.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+
+        // Ejecutar test al cargar la página
+        window.addEventListener('load', testImages);
+    </script>
+</body>
+
+</html>

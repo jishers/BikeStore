@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Formulario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .debug-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        pre {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Debug Formulario - Categoría Repuestos</h1>
+
+    <form id="debug-form">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="Repuesto Debug" required>
+        </div>
+
+        <div class="form-group">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" value="20000" required>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" required>Repuesto de debug</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" value="5" required>
+        </div>
+
+        <div class="form-group">
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="">Selecciona una categoría</option>
+                <option value="bicicleta">Bicicletas</option>
+                <option value="accesorios">Accesorios</option>
+                <option value="repuestos" selected>Repuestos</option>
+            </select>
+        </div>
+
+        <button type="submit">Enviar Formulario</button>
+    </form>
+
+    <div class="debug-info">
+        <h3>📋 Información de Debug:</h3>
+        <div id="debug-output"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3001/api';
+
+        document.getElementById('debug-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Obtener valores del formulario
+            const formData = new FormData();
+            formData.append('nombre', document.getElementById('nombre').value);
+            formData.append('precio_venta', document.getElementById('precio').value);
+            formData.append('descripcion', document.getElementById('descripcion').value);
+            formData.append('cantidad', document.getElementById('cantidad').value);
+            formData.append('categoria', document.getElementById('categoria').value);
+            formData.append('rol', 'admin');
+            formData.append('id_usuario', '1');
+
+            // Mostrar información de debug
+            const debugOutput = document.getElementById('debug-output');
+            debugOutput.innerHTML = `
+                <h4>🔍 Valores del formulario:</h4>
+                <pre>${JSON.stringify({
+                nombre: document.getElementById('nombre').value,
+                precio_venta: document.getElementById('precio').value,
+                descripcion: document.getElementById('descripcion').value,
+                cantidad: document.getElementById('cantidad').value,
+                categoria: document.getElementById('categoria').value,
+                categoria_tipo: typeof document.getElementById('categoria').value,
+                categoria_longitud: document.getElementById('categoria').value.length,
+                categoria_codigos: Array.from(document.getElementById('categoria').value).map(c => c.charCodeAt(0))
+            }, null, 2)}</pre>
+                
+                <h4>🔍 Verificaciones:</h4>
+                <ul>
+                    <li>¿Categoría es "repuestos"? ${document.getElementById('categoria').value === 'repuestos'}</li>
+                    <li>¿Categoría es "bicicleta"? ${document.getElementById('categoria').value === 'bicicleta'}</li>
+                    <li>¿Categoría está vacía? ${document.getElementById('categoria').value === ''}</li>
+                    <li>¿Categoría tiene espacios? ${document.getElementById('categoria').value.includes(' ')}</li>
+                </ul>
+            `;
+
+            try {
+                console.log('🚀 Enviando formulario...');
+                console.log('Valores:', {
+                    nombre: document.getElementById('nombre').value,
+                    categoria: document.getElementById('categoria').value,
+                    categoria_tipo: typeof document.getElementById('categoria').value
+                });
+
+                const response = await fetch(`${API_BASE}/productos`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                debugOutput.innerHTML += `
+                    <h4>📡 Respuesta del servidor:</h4>
+                    <pre>${JSON.stringify({
+                    status: response.status,
+                    ok: response.ok,
+                    data: data
+                }, null, 2)}</pre>
+                `;
+
+                if (response.ok) {
+                    debugOutput.innerHTML += '<p style="color: green;">✅ Producto agregado exitosamente</p>';
+                } else {
+                    debugOutput.innerHTML += `<p style="color: red;">❌ Error: ${data.error || 'Error desconocido'}</p>`;
+                }
+
+            } catch (error) {
+                debugOutput.innerHTML += `
+                    <h4>❌ Error de red:</h4>
+                    <pre>${error.message}</pre>
+                `;
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>
