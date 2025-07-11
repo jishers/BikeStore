@@ -5,14 +5,13 @@ yarn-debug.log*
 yarn-error.log*
 
 # Archivos de entorno
-.env
+
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
 # Archivos subidos por usuarios
-uploads/
 *.jpg
 *.jpeg
 *.png
