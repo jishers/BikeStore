@@ -11,12 +11,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Archivos subidos por usuarios
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.webp
 
 # Logs
 logs
