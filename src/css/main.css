@@ -6,8 +6,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
+    =    background-color: #f5f5f5;
     color: #333;
     line-height: 1.6;
 }
@@ -118,7 +117,7 @@ main {
     padding: 3rem 6rem;
     flex: 1;
     background: white;
-    border-radius: 2rem;
+    border-radius: 1px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
@@ -1056,7 +1055,7 @@ footer {
         justify-content: space-between;
         align-items: center;
         padding: 1rem;
-        background-color: rgb(111, 109, 109);
+        background-color: rgb(255, 255, 255);
         color: white;
     }
 
@@ -2728,3 +2727,13 @@ footer {
     }
 }
 
+.btn-return-start{
+    padding: 15px;
+    margin: 0 auto;
+    color: white;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, rgb(111, 109, 109) 0%, rgb(243, 49, 49) 100%);
+    border-radius: 10px;  
+    border: white 2px solid;           
+}

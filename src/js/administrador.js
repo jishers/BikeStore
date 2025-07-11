@@ -263,30 +263,225 @@ async function generateReport(startDate, endDate, reportType) {
         const sortedCategorias = Object.entries(ventasPorCategoria)
             .sort((a, b) => b[1].total - a[1].total);
         
+        // Calcular estadísticas generales
+        const totalVentas = sortedCategorias.reduce((sum, [, datos]) => sum + datos.total, 0);
+        const totalProductos = sortedCategorias.reduce((sum, [, datos]) => sum + datos.cantidad, 0);
+        const categoriaTop = sortedCategorias[0];
+        const porcentajeTop = categoriaTop ? ((categoriaTop[1].total / totalVentas) * 100).toFixed(1) : 0;
+
+        // Definir colores y iconos para cada categoría
+        const categoriaConfig = {
+            'bicicleta': { color: '#8B0000', icon: 'bi-bicycle', gradient: 'linear-gradient(135deg, #8B0000 0%, #DC143C 100%)' },
+            'accesorios': { color: '#A52A2A', icon: 'bi-tools', gradient: 'linear-gradient(135deg, #A52A2A 0%, #8B0000 100%)' },
+            'repuestos': { color: '#660000', icon: 'bi-gear-fill', gradient: 'linear-gradient(135deg, #660000 0%, #B22222 100%)' },
+            'Sin categoría': { color: '#6c757d', icon: 'bi-question-circle', gradient: 'linear-gradient(135deg, #6c757d 0%, #495057 100%)' }
+        };
+
         adminReportResult.innerHTML = `
-            <h3><i class="bi bi-collection-fill" style="color: #6f42c1; margin-right: 0.5rem;"></i>Ventas por Categoría</h3>
-            <p><strong>Período:</strong> ${formatDate(startDate)} a ${formatDate(endDate)}</p>
-            <p><strong>Total de compras analizadas:</strong> ${comprasFiltradas.length}</p>
-            ${sortedCategorias.length > 0 ? `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Categoría</th>
-                            <th>Cantidad Vendida</th>
-                            <th>Total Ventas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${sortedCategorias.map(([categoria, datos]) => `
-                            <tr>
-                                <td>${categoria}</td>
-                                <td>${datos.cantidad}</td>
-                                <td>$${datos.total.toFixed(2)}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            ` : '<p style="color: #666; font-style: italic;">No hay ventas registradas en este período.</p>'}
+            <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.1);">
+                <!-- Encabezado del informe -->
+                <div style="display: flex; align-items: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid #f8f9fa;">
+                    <div style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); padding: 1rem; border-radius: 12px; margin-right: 1.5rem; box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);">
+                        <i class="bi bi-collection-fill" style="font-size: 2rem; color: white;"></i>
+                    </div>
+                    <div>
+                        <h3 style="color: #8B0000; margin: 0; font-size: 1.8rem; font-weight: 700; text-shadow: 0 2px 4px rgba(139, 0, 0, 0.1);">
+                            Informe de Ventas por Categoría
+                        </h3>
+                        <p style="color: #666; margin: 0.5rem 0 0 0; font-size: 1rem;">
+                            <i class="bi bi-calendar-range" style="margin-right: 0.5rem; color: #8B0000;"></i>
+                            Período: ${formatDate(startDate)} a ${formatDate(endDate)}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Estadísticas generales -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+                    <div style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: white; padding: 2rem; border-radius: 12px; text-align: center; box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -10px; right: -10px; background: rgba(255,255,255,0.1); width: 60px; height: 60px; border-radius: 50%;"></div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                            $${totalVentas.toLocaleString('es-CO', {minimumFractionDigits: 0, maximumFractionDigits: 0})}
+                        </div>
+                        <div style="font-size: 1rem; opacity: 0.95; font-weight: 600;">Total Ventas</div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 2rem; border-radius: 12px; text-align: center; box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -10px; right: -10px; background: rgba(255,255,255,0.1); width: 60px; height: 60px; border-radius: 50%;"></div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                            ${totalProductos.toLocaleString('es-CO')}
+                        </div>
+                        <div style="font-size: 1rem; opacity: 0.95; font-weight: 600;">Productos Vendidos</div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); color: white; padding: 2rem; border-radius: 12px; text-align: center; box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -10px; right: -10px; background: rgba(255,255,255,0.1); width: 60px; height: 60px; border-radius: 50%;"></div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                            ${sortedCategorias.length}
+                        </div>
+                        <div style="font-size: 1rem; opacity: 0.95; font-weight: 600;">Categorías Activas</div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%); color: white; padding: 2rem; border-radius: 12px; text-align: center; box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -10px; right: -10px; background: rgba(255,255,255,0.1); width: 60px; height: 60px; border-radius: 50%;"></div>
+                        <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                            ${comprasFiltradas.length}
+                        </div>
+                        <div style="font-size: 1rem; opacity: 0.95; font-weight: 600;">Transacciones</div>
+                    </div>
+                </div>
+
+                ${sortedCategorias.length > 0 ? `
+                    <!-- Tabla de ventas por categoría -->
+                    <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;">
+                        <div style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); padding: 1.5rem; color: white;">
+                            <h4 style="margin: 0; font-size: 1.3rem; font-weight: 600; display: flex; align-items: center;">
+                                <i class="bi bi-bar-chart-fill" style="margin-right: 0.8rem; font-size: 1.5rem;"></i>
+                                Desglose por Categorías
+                            </h4>
+                        </div>
+                        
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                                <thead>
+                                    <tr style="background: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                                        <th style="padding: 1.2rem; text-align: left; font-weight: 700; color: #495057; font-size: 1rem;">
+                                            <i class="bi bi-trophy" style="margin-right: 0.5rem; color: #8B0000;"></i>Posición
+                                        </th>
+                                        <th style="padding: 1.2rem; text-align: left; font-weight: 700; color: #495057; font-size: 1rem;">
+                                            <i class="bi bi-collection" style="margin-right: 0.5rem; color: #8B0000;"></i>Categoría
+                                        </th>
+                                        <th style="padding: 1.2rem; text-align: center; font-weight: 700; color: #495057; font-size: 1rem;">
+                                            <i class="bi bi-box-seam" style="margin-right: 0.5rem; color: #8B0000;"></i>Cantidad Vendida
+                                        </th>
+                                        <th style="padding: 1.2rem; text-align: center; font-weight: 700; color: #495057; font-size: 1rem;">
+                                            <i class="bi bi-currency-dollar" style="margin-right: 0.5rem; color: #8B0000;"></i>Total Ventas
+                                        </th>
+                                        <th style="padding: 1.2rem; text-align: center; font-weight: 700; color: #495057; font-size: 1rem;">
+                                            <i class="bi bi-percent" style="margin-right: 0.5rem; color: #8B0000;"></i>Porcentaje
+                                        </th>
+                                        <th style="padding: 1.2rem; text-align: center; font-weight: 700; color: #495057; font-size: 1rem;">
+                                            <i class="bi bi-graph-up" style="margin-right: 0.5rem; color: #8B0000;"></i>Rendimiento
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${sortedCategorias.map(([categoria, datos], index) => {
+                                        const config = categoriaConfig[categoria] || categoriaConfig['Sin categoría'];
+                                        const porcentaje = ((datos.total / totalVentas) * 100).toFixed(1);
+                                        const isTop = index === 0;
+                                        
+                                        return `
+                                            <tr style="border-bottom: 1px solid #f1f3f4; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#f8f9fa'; this.style.transform='translateY(-2px)'" 
+                                                onmouseout="this.style.backgroundColor='white'; this.style.transform='translateY(0)'">
+                                                <td style="padding: 1.2rem; border: none; text-align: center;">
+                                                    ${isTop ? `
+                                                        <span style="background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); color: #8B0000; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 900; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);">
+                                                            <i class="bi bi-trophy-fill" style="margin-right: 0.3rem;"></i>1°
+                                                        </span>
+                                                    ` : `
+                                                        <span style="background: ${index === 1 ? 'linear-gradient(135deg, #c0c0c0 0%, #e5e5e5 100%)' : index === 2 ? 'linear-gradient(135deg, #cd7f32 0%, #daa520 100%)' : 'linear-gradient(135deg, #6c757d 0%, #495057 100%)'}; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                                                            ${index + 1}°
+                                                        </span>
+                                                    `}
+                                                </td>
+                                                <td style="padding: 1.2rem; border: none;">
+                                                    <div style="display: flex; align-items: center;">
+                                                        <div style="background: ${config.gradient}; color: white; padding: 0.8rem; border-radius: 10px; margin-right: 1rem; box-shadow: 0 4px 15px rgba(139, 0, 0, 0.2);">
+                                                            <i class="bi ${config.icon}" style="font-size: 1.2rem;"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div style="font-weight: 700; color: #333; font-size: 1.1rem; margin-bottom: 0.2rem;">
+                                                                ${categoria.charAt(0).toUpperCase() + categoria.slice(1)}
+                                                            </div>
+                                                            <div style="color: #666; font-size: 0.9rem;">
+                                                                ${datos.cantidad} productos vendidos
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding: 1.2rem; border: none; text-align: center;">
+                                                    <span style="background: #e3f2fd; color: #1976d2; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 1rem; box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);">
+                                                        ${datos.cantidad.toLocaleString('es-CO')}
+                                                    </span>
+                                                </td>
+                                                <td style="padding: 1.2rem; border: none; text-align: center;">
+                                                    <div style="font-weight: 900; color: #28a745; font-size: 1.2rem; text-shadow: 0 1px 2px rgba(40, 167, 69, 0.2);">
+                                                        $${datos.total.toLocaleString('es-CO', {minimumFractionDigits: 0, maximumFractionDigits: 0})}
+                                                    </div>
+                                                </td>
+                                                <td style="padding: 1.2rem; border: none; text-align: center;">
+                                                    <div style="display: flex; align-items: center; justify-content: center;">
+                                                        <div style="background: #fff3e0; color: #f57c00; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; font-size: 1rem; box-shadow: 0 2px 8px rgba(245, 124, 0, 0.2);">
+                                                            ${porcentaje}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding: 1.2rem; border: none; text-align: center;">
+                                                    <div style="display: flex; align-items: center; justify-content: center;">
+                                                        <div style="width: 100px; height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; position: relative;">
+                                                            <div style="width: ${porcentaje}%; height: 100%; background: ${config.gradient}; border-radius: 4px; transition: width 0.8s ease;"></div>
+                                                        </div>
+                                                        <span style="margin-left: 0.5rem; font-size: 0.9rem; color: #666; font-weight: 600;">
+                                                            ${porcentaje}%
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Información adicional -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #8B0000; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <i class="bi bi-trophy-fill" style="font-size: 1.5rem; color: #ffd700; margin-right: 0.8rem;"></i>
+                                <h5 style="margin: 0; color: #8B0000; font-weight: 700;">Categoría Líder</h5>
+                            </div>
+                            <p style="margin: 0; color: #666; font-size: 1rem;">
+                                <strong>${categoriaTop ? categoriaTop[0].charAt(0).toUpperCase() + categoriaTop[0].slice(1) : 'N/A'}</strong> 
+                                domina las ventas con el <strong>${porcentajeTop}%</strong> del total de ingresos.
+                            </p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #28a745; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <i class="bi bi-graph-up-arrow" style="font-size: 1.5rem; color: #28a745; margin-right: 0.8rem;"></i>
+                                <h5 style="margin: 0; color: #28a745; font-weight: 700;">Rendimiento General</h5>
+                            </div>
+                            <p style="margin: 0; color: #666; font-size: 1rem;">
+                                Se analizaron <strong>${comprasFiltradas.length}</strong> transacciones con un promedio de 
+                                <strong>$${(totalVentas / comprasFiltradas.length).toLocaleString('es-CO', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</strong> por venta.
+                            </p>
+                        </div>
+                    </div>
+                ` : `
+                    <!-- Mensaje cuando no hay datos -->
+                    <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 3rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <i class="bi bi-inbox" style="font-size: 4rem; color: #ccc; margin-bottom: 1.5rem; display: block;"></i>
+                        <h4 style="color: #666; margin: 0 0 1rem 0; font-size: 1.5rem;">No hay ventas registradas</h4>
+                        <p style="color: #999; margin: 0; font-size: 1rem;">No se encontraron ventas en el período seleccionado</p>
+                    </div>
+                `}
+
+                <!-- Pie de página del informe -->
+                <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); color: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center;">
+                            <i class="bi bi-info-circle-fill" style="font-size: 1.2rem; margin-right: 0.8rem;"></i>
+                            <span style="font-weight: 600;">Informe generado el ${new Date().toLocaleString('es-CO')}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 0.9rem; opacity: 0.9;">BIKE STORE J,A,J</div>
+                            <div style="font-size: 0.8rem; opacity: 0.8;">Panel de Administración</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         `;
     } else if (reportType === 'mas-popular') {
         // Generar informe de productos más populares (basado en vistas o interacciones)
